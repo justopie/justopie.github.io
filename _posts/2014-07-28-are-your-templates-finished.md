@@ -1,5 +1,5 @@
 ---
-layout: posts
+layout: post
 title: Are your templates finished?
 published: true
 tags: templates AutoCAD
