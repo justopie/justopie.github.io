@@ -10,9 +10,8 @@ relative_permalinks: true
 
 # Setup
 title:               Just notes from Opie
-tagline:             'A commentary on AutoCAD and Civil e
-3d'
-description:         'A little commentary on my work with customizing AutoCAD and Civil 3d from <a href="https://twitter.com/justopie" target="_blank">@justopie</a>.'
+tagline:             'A commentary on AutoCAD and Civil 3d'
+description:         'A little commentary on my work customizing AutoCAD and Civil 3d to develop the pretty pictures from <a href="https://twitter.com/justopie" target="_blank">@justopie</a>.'
 url:                 http://justopie.github.io
 baseurl:             /
 paginate:            5
@@ -21,7 +20,7 @@ paginate:            5
 author:
   name:              Richard Lawrence
   url:               https://twitter.com/Justopie
-  email:             Justopie@Gmail.com
+  email:             Justopie@gmail.com
 
 # Custom vars
 version:             1.0.0
