@@ -8,4 +8,5 @@ title: Tags
   {% for tag in sorted_tags %}
     {% include tag_link_formatter.html tag=tag tag_separator='<br />' %}
   {% endfor %}
+  {{ site.data.tags }}
 </div>
