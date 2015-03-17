@@ -13,5 +13,4 @@ Of course, once you start a new drawing from a template, your drawing will conti
 To help with these changes, I would prefer to automate these changes as much as I can. This is where I utilize a mix of AuoLISP and script files. In a later post I'll discuss some of these quick tools.
 
  Eventually, you will make these changes to your templates. Until then, we can use the power of AutoLISP to ease the pain.
-
- Let me know your thoughts on this below.
+ 
