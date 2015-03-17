@@ -3,6 +3,7 @@ layout: post
 title: Are your templates finished?
 published: true
 tag: [templates, AutoCAD]
+excerpt_separator: <!--more-->
 ---
 No? Don't worry mine aren't either.
 
