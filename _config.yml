@@ -11,7 +11,7 @@ relative_permalinks: true
 # Setup
 title:               Just notes from Opie
 tagline:             'A commentary on AutoCAD and Civil 3d'
-description:         'A little commentary on my work customizing AutoCAD and Civil 3d to develop the pretty pictures from <a href="https://twitter.com/justopie" target="_blank">@justopie</a>.'
+description:         'A little commentary on my work customizing AutoCAD and Civil 3d to create pretty pictures for construction, by <a href="https://twitter.com/justopie" target="_blank">@justopie</a>.'
 url:                 http://justopie.github.io
 baseurl:             /
 paginate:            5
