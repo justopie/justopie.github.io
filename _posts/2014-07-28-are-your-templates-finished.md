@@ -2,7 +2,7 @@
 layout: post
 title: Are your templates finished?
 published: true
-tags: [templates, AutoCAD]
+tag: [templates, AutoCAD]
 ---
 No? Don't worry mine aren't either.
 
