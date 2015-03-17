@@ -1,6 +1,7 @@
 ---
 layout: posts
 title: Are your templates finished?
+published: true
 ---
 No? Don't worry mine aren't either.
 
