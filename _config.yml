@@ -2,6 +2,13 @@
 markdown:            redcarpet
 highlighter:         pygments
 
+redcarpet:
+  extensions: [autolink]
+
+exclude: [README.md, TODO.md, LICENSE, node_modules, Makefile, Gulpfile.js, package.json]
+
+timezone:            USA/Chicago
+
 # Permalinks
 #
 # Use of `relative_permalinks` ensures post links from the index work properly.
@@ -22,6 +29,8 @@ excerpt_separator: <!--more-->
 author:
   name:              Richard Lawrence
   url:               https://twitter.com/Justopie
+  twitter_link:      https://twitter.com/Justopie
+  github_link:       https://justopie.github.io
   email:             Justopie@gmail.com
 
 # Custom vars
