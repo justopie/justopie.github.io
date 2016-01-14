@@ -6,7 +6,9 @@ tags: [Point Group, Civil 3D]
 ---
 For many years, I have tinkered with customizing AutoCAD using AutoLISP.  Once I moved to Civil 3D, I was limited in using AutoLISP to continue writing routines to automate tedious tasks.  As the Civil 3D has matured, the AutoLISP access to Civil 3D items in the drawings has increased.
 
-Today, I need to create a point group to organize some points in my drawing.  The current method OOTB requires one to right-click the Point Groups branch found in the Tool Space.  This is one of those tedious tasks, which can't be automated if it must use the mouse to interact.<!--more-->
+Today, I need to create a point group to organize some points in my drawing.  The current method OOTB requires one to right-click the Point Groups branch found in the Tool Space.  This is one of those tedious tasks, which can't be automated if it must use the mouse to interact.
+
+<!--more-->
 
 Fortunately, the Point Groups property can be retrieve from the active Civil 3D document.  First, we need to retrieve the active Civil 3D document.  To do that, we can use this routine.
 
