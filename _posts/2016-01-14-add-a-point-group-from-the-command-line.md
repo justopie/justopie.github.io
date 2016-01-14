@@ -11,7 +11,6 @@ Today, I need to create a point group to organize some points in my drawing.  Th
 Fortunately, the Point Groups property can be retrieve from the active Civil 3D document.  First, we need to retrieve the active Civil 3D document.  To do that, we can use this routine.
 
 <a name="c3ddoc">&nbsp;</a>
-
 ```lisp
 (defun OP:c3ddoc (/ prod verstr C3DDoc c3dver)
   (defun c3dver	(/ c3d *acad*)
