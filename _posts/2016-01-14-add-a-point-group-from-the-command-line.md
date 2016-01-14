@@ -53,7 +53,7 @@ Now that we have a routine to retrieve the active Civil 3D document, we can retr
 
 The Point Groups property is actually a collection of the point groups in the drawing.  There are many other collections used in AutoCAD and many of it's verticals.  Therefore, I came up with this function to either add a new item to the collection or get the specificly named item from the collection.
 
-<a name="addorgetitem">$nbsp;</a>
+<a name="addorgetitem">&nbsp;</a>
 
 ```lisp
 (defun addorgetitem (objCollection strName / objFromCollection)
