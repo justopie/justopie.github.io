@@ -10,7 +10,7 @@ Today, I need to create a point group to organize some points in my drawing.  Th
 
 Fortunately, the Point Groups property can be retrieve from the active Civil 3D document.  First, we need to retrieve the active Civil 3D document.  To do that, we can use this routine.
 
-[Civil 3D Active Document](#c3ddoc)
+<a name="c3ddoc">&nbsp;</a>
 
 ```lisp
 (defun OP:c3ddoc (/ prod verstr C3DDoc c3dver)
@@ -45,7 +45,7 @@ According to some, this may not be the most efficient code to retrieve the activ
 
 Now that we have a routine to retrieve the active Civil 3D document, we can retrieve the Point Groups property.  This would be a simple one line function.
 
-[Point Groups Property](#pointgroups)
+<a name="pointgroups">&nbsp;</a>
 
 ```lisp
 (vlax-get-property (OP:c3ddoc) 'PointGroups)
@@ -53,7 +53,7 @@ Now that we have a routine to retrieve the active Civil 3D document, we can retr
 
 The Point Groups property is actually a collection of the point groups in the drawing.  There are many other collections used in AutoCAD and many of it's verticals.  Therefore, I came up with this function to either add a new item to the collection or get the specificly named item from the collection.
 
-[Add or Get Item From A Collection](#addorgetitem)
+<a name="addorgetitem">$nbsp;</a>
 
 ```lisp
 (defun addorgetitem (objCollection strName / objFromCollection)
@@ -84,6 +84,8 @@ The Point Groups property is actually a collection of the point groups in the dr
 ```
 
 Finally, we can pull all of this together to add or get an existing point group.
+
+<a name="addpointgroup">&nbsp;</a>
 
 ```lisp
 (defun AddPointGroup (strName / objGroup objGroups)
