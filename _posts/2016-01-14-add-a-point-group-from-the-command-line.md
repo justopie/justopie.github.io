@@ -2,7 +2,7 @@
 layout: post
 title: Add a Point Group from the command line
 published: true
-tags: [Point Group, Civil 3D]
+tags: [Point Groups, Civil 3D]
 ---
 For many years, I have tinkered with customizing AutoCAD using AutoLISP.  Once I moved to Civil 3D, I was limited in using AutoLISP to continue writing routines to automate tedious tasks.  As the Civil 3D has matured, the AutoLISP access to Civil 3D items in the drawings has increased.
 
