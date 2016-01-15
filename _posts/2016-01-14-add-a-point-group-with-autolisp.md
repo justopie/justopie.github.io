@@ -88,7 +88,7 @@ Finally, we can pull all of this together to add or get an existing point group.
 
 ```lisp
 (defun AddPointGroup (strName / objGroup objGroups)
-  (if (and (setq objGroups (vlax-get-property (op:c3d) 'PointGroups))
+  (if (and (setq objGroups (vlax-get-property (op:c3ddoc) 'PointGroups))
 	   (setq objGroup (addorgetitem objGroups strName))
       )
     objGroup
