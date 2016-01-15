@@ -555,3 +555,7 @@ a.pagination-item:hover {
 .post-tags p{
 	font-size:70%;
 }
+div.post img { 
+  float: right;
+  display: inline;
+}
