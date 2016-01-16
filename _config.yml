@@ -26,12 +26,14 @@ paginate:            5
 # excerpt_separator: <!--more-->
 
 # About/contact
-author:
-  name:              Richard Lawrence
-  url:               https://twitter.com/Justopie
-  twitter_link:      https://twitter.com/Justopie
-  github_link:       https://justopie.github.io
-  email:             Justopie@gmail.com
+authors:
+  opie:
+    name:    Richard Lawrence
+    url:     https://justopie.github.io
+    twitter: JustOpie
+    github:  justopie
+    email:   JustOpie@gmail.com
+    web:     https://justopie.github.io
 
 # Custom vars
 version:             1.0.0
