@@ -125,3 +125,5 @@ We can look through the properties and see we have an `IncludeNumbers` property.
   )
 )
 ```
+
+In my next post, I'll pull it all together for daily use.
