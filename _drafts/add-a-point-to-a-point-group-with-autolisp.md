@@ -1,10 +1,11 @@
 ---
 layout: post
 title: Add a Point to a Point Group with AutoLISP
-published: false
+published: true
 tags: [AutoLISP, Civil 3D, Point Groups, Points]
+author: opie
 ---
-With [last week's post]({% post_url 2016-01-14-add-a-point-group-from-the-command-line %}), I showed how to add a Point Group to your Civil 3D drawing.  Of course, only creating point groups isn't the most useful automation tool.  We need a way to add points to point groups without going through all of the manual steps.
+![Points]({{ site.url }}/assets/points.png) With [last week's post]({% post_url 2016-01-14-add-a-point-group-from-the-command-line %}), I showed how to add a Point Group to your Civil 3D drawing.  Of course, only creating point groups isn't the most useful automation tool.  We need a way to add points to point groups without going through all of the manual steps.
 
 Before we start adding points to a point group, we probably should check to see if the points are already contained in the point group.  To do this, we need to see what properties or methods are available with point groups.  Let's dump a point group object to see what it holds.
 
