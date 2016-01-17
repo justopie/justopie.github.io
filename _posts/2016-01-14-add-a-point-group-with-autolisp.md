@@ -3,7 +3,7 @@ layout: post
 title: Add a Point Group with AutoLISP
 published: true
 tags: [AutoLISP, Civil 3D, Point Groups]
-author: opie
+author: Richard Lawrence
 ---
 ![Point Groups]({{ site.url }}/assets/pointgroups.png) For many years, I have tinkered with customizing AutoCAD using AutoLISP.  Once I moved to Civil 3D, I was limited in using AutoLISP to continue writing routines to automate tedious tasks.  As the Civil 3D has matured, the AutoLISP access to Civil 3D items in the drawings has increased.
 
