@@ -1,13 +1,12 @@
 ---
 layout: default
 ---
-{% assign author = site.data.authors[page.author] %}
 <div class="post">
   <h1 class="post-title">{{ page.title }}</h1>
   <span class="post-date">{{ page.date | date_to_string }}</span>
   {{ content }}
   {% include twitter_plugin.html %}
-  {% if page.tags %}<p class="post-tags">Published {% if author %} by {{ author[name] }} {% endif %}under: {{ page.tags | slugize | array_to_sentence_string }}.</p>{% endif %}
+  {% if page.tags %}<p class="post-tags">Published by {% if page.authors %}{{ page.authors | array_to_sentence_string }}{% else %}{{ page.author }}{% endif %} under: {{ page.tags | array_to_sentence_string }}.</p>{% endif %}
 </div>
 {% if site.related_posts > 0 %}
 <div class="related">
