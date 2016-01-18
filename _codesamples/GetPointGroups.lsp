@@ -1,0 +1,1 @@
+(vlax-get-property (OP:c3ddoc) 'PointGroups)

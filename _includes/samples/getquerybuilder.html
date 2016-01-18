@@ -1,0 +1,11 @@
+<div class="highlight">
+<pre>
+<span class="brkt">(</span><span class="func">defun</span> GetQueryBuilder <span class="brkt">(</span>objGroup<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> objGroup<span class="brkt">)</span> <span class="quot">'</span>VLA-OBJECT<span class="brkt">)</span>
+           <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">vla-get-ObjectName</span> objGroup<span class="brkt">)</span> <span class="str">"AeccDbPG"</span><span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">vlax-get-property</span> objGroup <span class="quot">'</span>QueryBuilder<span class="brkt">)</span>
+  <span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre>
+</div>

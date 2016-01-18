@@ -1,0 +1,21 @@
+<div class="highlight">
+<pre>
+<span class="brkt">(</span><span class="func">defun</span> AddPointToGroup <span class="brkt">(</span>intPoint objGroup <span class="func">/</span> objQB<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> intPoint<span class="brkt">)</span> <span class="quot">'</span>INT<span class="brkt">)</span>
+           <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> objGroup<span class="brkt">)</span> <span class="quot">'</span>VLA-OBJECT<span class="brkt">)</span>
+           <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">vla-get-ObjectName</span> objGroup<span class="brkt">)</span> <span class="str">"AeccDbPG"</span><span class="brkt">)</span>
+           <span class="brkt">(</span><span class="func">zerop</span> <span class="brkt">(</span>ContainsPoint objGroup intPoint<span class="brkt">))</span>
+      <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">progn</span>
+      <span class="brkt">(</span><span class="func">setq</span> objQB         <span class="brkt">(</span>GetQueryBuilder objGroup<span class="brkt">)</span>
+        strIncludeNumbers <span class="brkt">(</span><span class="func">vlax-get-property</span> objQB <span class="quot">'</span>IncludeNumbers<span class="brkt">)</span>
+      <span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">&gt;</span> <span class="brkt">(</span><span class="func">strlen</span> strIncludedNumbers<span class="brkt">)</span> <span class="int">0</span><span class="brkt">)</span>
+        <span class="brkt">(</span><span class="func">vlax-put-property</span> objQB <span class="quot">'</span>IncludeNumbers <span class="brkt">(</span><span class="func">strcat</span> strIncludedNumbers <span class="str">","</span> <span class="brkt">(</span><span class="func">itoa</span> intPoint<span class="brkt">)))</span>
+        <span class="brkt">(</span><span class="func">vlax-put-property</span> objQB <span class="quot">'</span>IncludeNumbers <span class="brkt">(</span><span class="func">itoa</span> intPoint<span class="brkt">))</span>
+      <span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre>
+</div>

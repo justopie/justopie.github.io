@@ -55,16 +55,7 @@ If we keep looking at the properties and methods, we can see the point group has
 
 ### <a name="containspoint">Contains Point</a>
 
-```lisp
-(defun ContainsPoint (objGroup intPoint /)
-  (if (and (= (type intPoint) 'INT)
-       (= (type objGroup) 'VLA-OBJECT)
-       (= (vla-get-ObjectName objGroup) "AeccDbPG")
-      )
-    (= -1 (vlax-invoke objGroup 'ContainsPoint intPoint))
-  )
-)
-```
+{% include samples/containspoint.html %}
 
 This subroutine is looking for the point group object to query and the point number to search.  The return value will be T when the point is found and nil otherwise.  Now that we can check to see if a point is in the point group.
 
@@ -72,15 +63,7 @@ To add points to a point group, we must first access the `QueryBuilder` property
 
 ### <a name="getquerybuilder">Get Query Builder</a>
 
-```lisp
-(defun GetQueryBuilder (objGroup)
-  (if (and (= (type objGroup) 'VLA-OBJECT)
-           (= (vla-get-ObjectName objGroup) "AeccDbPG")
-      )
-    (vlax-get-property objGroup 'QueryBuilder)
-  )
-)
-```
+{% include samples/getquerybuilder.html %}
 
 The properties for the QueryBuilder are shown in this object dump.
 
@@ -107,24 +90,6 @@ We can look through the properties and see we have an `IncludeNumbers` property.
 
 ### <a name="addpointtogroup">Add Point To Group</a>
 
-```lisp
-(defun AddPointToGroup (intPoint objGroup / objQB)
-  (if (and (= (type intPoint) 'INT)
-           (= (type objGroup) 'VLA-OBJECT)
-           (= (vla-get-ObjectName objGroup) "AeccDbPG")
-           (zerop (ContainsPoint objGroup intPoint))
-      )
-    (progn
-      (setq objQB         (GetQueryBuilder objGroup)
-        strIncludeNumbers (vlax-get-property objQB 'IncludeNumbers)
-      )
-      (if (> (strlen strIncludedNumbers) 0)
-        (vlax-put-property objQB 'IncludeNumbers (strcat strIncludedNumbers "," (itoa intPoint)))
-        (vlax-put-property objQB 'IncludeNumbers (itoa intPoint))
-      )
-    )
-  )
-)
-```
+{% include samples/addpointtogroup.html %}
 
 In my next post, I'll pull it all together for daily use.

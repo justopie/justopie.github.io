@@ -1,0 +1,8 @@
+(defun ContainsPoint (objGroup intPoint /)
+  (if (and (= (type intPoint) 'INT)
+       (= (type objGroup) 'VLA-OBJECT)
+       (= (vla-get-ObjectName objGroup) "AeccDbPG")
+      )
+    (= -1 (vlax-invoke objGroup 'ContainsPoint intPoint))
+  )
+)

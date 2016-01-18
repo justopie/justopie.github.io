@@ -1,0 +1,7 @@
+(defun GetQueryBuilder (objGroup)
+  (if (and (= (type objGroup) 'VLA-OBJECT)
+           (= (vla-get-ObjectName objGroup) "AeccDbPG")
+      )
+    (vlax-get-property objGroup 'QueryBuilder)
+  )
+)

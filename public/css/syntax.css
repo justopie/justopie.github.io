@@ -64,3 +64,33 @@
 .css .o,
 .css .o + .nt,
 .css .nt + .nt { color: #999; }
+
+div.highlight pre {
+	background-color:#eaeaea;
+	border: 1px solid #6a9fb5;
+	color: #232323;
+}
+.highlight .quot { /* Quotes/Dots */
+  color:darkred;
+}
+.highlight .brkt { /* Brackets */
+  color:red;
+}
+.highlight .cmt { /* Multiline Comments */
+  color:#990099;
+}
+.highlight .cmt { /* Single Comments */
+  color:#990099;
+}
+.highlight .str { /* Strings */
+  color:#a52a2a;
+}
+.highlight .func { /* Protected Symbols */
+  color:BLUE;
+}
+.highlight .int { /* Integers */
+  color:#009900;
+}
+.highlight .rea { /* Reals */
+  color:#009999;
+}
