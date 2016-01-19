@@ -49,7 +49,7 @@ Command: (vlax-dump-object objPointGroup t)
 ;   Update ()
 ```
 
-With this object dump, we can see we have a couple of points in this group.  However, the Points property is marked read-only `(RO)`.  Is we retrieve the point property, the returned value will be a variant, which will need additional simplification down to a list.
+With this object dump, we can see we have a couple of points in this group.  However, the Points property is marked read-only `(RO)`.  If we retrieve the point property, the returned value will be a variant, which will need additional simplification down to a list.
 
 If we keep looking at the properties and methods, we can see the point group has a method of `ContainsPoints (1)`.  The 1 following the name means we must supply one argument to this method for it to work.  Consulting the [Civil 3D .NET API Reference](http://docs.autodesk.com/CIV3D/2015/ENU/API_Reference_Guide/html/57e2c379-a23b-fa8d-943d-c34b6b9d7142.htm), we can see the argument should be an integer.  I guess that means we should supply the method with a point number.
 
@@ -57,7 +57,7 @@ If we keep looking at the properties and methods, we can see the point group has
 
 {% include samples/containspoint.html %}
 
-This subroutine is looking for the point group object to query and the point number to search.  The return value will be T when the point is found and nil otherwise.  Now that we can check to see if a point is in the point group.
+This subroutine is looking for the point group object to query and the point number to search.  The return value will be T when the point is found and nil otherwise.  Now we can check to see if a point is in the point group.
 
 To add points to a point group, we must first access the `QueryBuilder` property.  We can do that with the `vlax-get-property` function.  This routine will return the QueryBuilder property object of the provided point group.
 
