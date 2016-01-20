@@ -2,11 +2,11 @@
   (if (and (= (type intPoint) 'INT)
            (= (type objGroup) 'VLA-OBJECT)
            (= (vla-get-ObjectName objGroup) "AeccDbPG")
-           (zerop (ContainsPoint objGroup intPoint))
+           (not (ContainsPoint objGroup intPoint))
       )
     (progn
       (setq objQB         (GetQueryBuilder objGroup)
-        strIncludeNumbers (vlax-get-property objQB 'IncludeNumbers)
+        strIncludedNumbers (vlax-get-property objQB 'IncludeNumbers)
       )
       (if (> (strlen strIncludedNumbers) 0)
         (vlax-put-property objQB 'IncludeNumbers (strcat strIncludedNumbers "," (itoa intPoint)))
