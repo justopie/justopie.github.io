@@ -1,6 +1,6 @@
 (defun C:AddToPG (/	       _doc	    dcl_id	 data
 		  value	       group	    lstNumbers	 strMsg
-		  objPG	       ss	    blnClick	 sCnt
+		  objPG	       	    blnClick	 
 		  strDCLFile   strDCLFilePath		 fname
 		  strIncludedNumbers
 		 )
@@ -21,32 +21,7 @@
     (end_list)
   )
 
-  ;;ADDPOINTGROUP
-  (defun AddPointGroup (strName / objGroup objGroups)
-    (if	(and (setq objGroups (vlax-get-property (op:c3ddoc) 'PointGroups))
-	     (setq objGroup (addorgetitem objGroups strName))
-	)
-      objGroup
-    )
-  )
-
-  ;;GETPOINTGROUP
-  (defun GetPointGroup (strName / objGroup objGroups)
-    (if	(and (setq objGroups (vlax-get-property (op:c3ddoc) 'PointGroups))
-	     (=	'VLA-OBJECT
-		(type (setq objGroup (vl-catch-all-apply
-				       'vla-item
-				       (list objGroups strName)
-				     )
-		      )
-		)
-	     )
-	)
-      objGroup
-    )
-  )
-
-  ;;Get Civil 3D Active Document
+  ;; - Get Civil 3D Active Document
   (defun OP:c3ddoc (/ prod verstr c3dver)
     (defun c3dver (/ c3d *acad*)
       (setq C3D	(strcat	"HKEY_LOCAL_MACHINE\\"
@@ -82,49 +57,7 @@
     _C3DDoc
   )
 
-  ;;ADDPOINTTOGROUP
-  (defun AddPointToGroup (intPoint objGroup / objQB strIncludedNumbers)
-    (if	(and (= (type intPoint) 'INT)
-	     (= (type objGroup) 'VLA-OBJECT)
-	     (= (vla-get-ObjectName objGroup) "AeccDbPG")
-	     (not (ContainsPoint objGroup intPoint))
-	)
-      (progn
-	(setq objQB		 (GetQueryBuilder objGroup)
-	      strIncludedNumbers (vlax-get-property objQB 'IncludeNumbers)
-	)
-	(if (> (strlen strIncludedNumbers) 0)
-	  (vlax-put-property
-	    objQB
-	    'IncludeNumbers
-	    (strcat strIncludedNumbers "," (itoa intPoint))
-	  )
-	  (vlax-put-property objQB 'IncludeNumbers (itoa intPoint))
-	)
-      )
-    )
-  )
-
-  ;;CONTAINSPOINT
-  (defun ContainsPoint (objGroup intPoint /)
-    (if	(and (= (type intPoint) 'INT)
-	     (= (type objGroup) 'VLA-OBJECT)
-	     (= (vla-get-ObjectName objGroup) "AeccDbPG")
-	)
-      (= -1 (vlax-invoke objGroup 'ContainsPoint intPoint))
-    )
-  )
-
-  ;;GETQUERYBUILDER
-  (defun GetQueryBuilder (objGroup)
-    (if	(and (= (type objGroup) 'VLA-OBJECT)
-	     (= (vla-get-ObjectName objGroup) "AeccDbPG")
-	)
-      (vlax-get-property objGroup 'QueryBuilder)
-    )
-  )
-
-  ;; ADDORGETITEM
+  ;; - AddOrGetItem
   (defun addorgetitem (objCollection strName / objFromCollection)
     (or	(= (type (setq objFromCollection
 			(vl-catch-all-apply
@@ -148,6 +81,91 @@
     (if	(= (type objFromCollection) 'VL-CATCH-ALL-APPLY-ERROR)
       (setq objFromCollection nil)
       objFromCollection
+    )
+  )
+
+  ;; - AddPointGroup
+  (defun AddPointGroup (strName / objGroup objGroups)
+    (if	(and (setq objGroups (vlax-get-property (op:c3ddoc) 'PointGroups))
+	     (setq objGroup (addorgetitem objGroups strName))
+	)
+      objGroup
+    )
+  )
+
+  ;; - GetPointGroup
+  (defun GetPointGroup (strName / objGroup objGroups)
+    (if	(and (setq objGroups (vlax-get-property (op:c3ddoc) 'PointGroups))
+	     (=	'VLA-OBJECT
+		(type (setq objGroup (vl-catch-all-apply
+				       'vla-item
+				       (list objGroups strName)
+				     )
+		      )
+		)
+	     )
+	)
+      objGroup
+    )
+  )
+
+  ;; - ContainsPoint
+  (defun ContainsPoint (objGroup intPoint /)
+    (if	(and (= (type intPoint) 'INT)
+	     (= (type objGroup) 'VLA-OBJECT)
+	     (= (vla-get-ObjectName objGroup) "AeccDbPG")
+	)
+      (= -1 (vlax-invoke objGroup 'ContainsPoint intPoint))
+    )
+  )
+
+  ;; - GetQueryBuilder
+  (defun GetQueryBuilder (objGroup)
+    (if	(and (= (type objGroup) 'VLA-OBJECT)
+	     (= (vla-get-ObjectName objGroup) "AeccDbPG")
+	)
+      (vlax-get-property objGroup 'QueryBuilder)
+    )
+  )
+
+  ;; - AddPointToGroup
+  (defun AddPointToGroup (intPoint objGroup / objQB strIncludedNumbers)
+    (if	(and (= (type intPoint) 'INT)
+	     (= (type objGroup) 'VLA-OBJECT)
+	     (= (vla-get-ObjectName objGroup) "AeccDbPG")
+	     (not (ContainsPoint objGroup intPoint))
+	)
+      (progn
+	(setq objQB		 (GetQueryBuilder objGroup)
+	      strIncludedNumbers (vlax-get-property objQB 'IncludeNumbers)
+	)
+	(if (> (strlen strIncludedNumbers) 0)
+	  (vlax-put-property
+	    objQB
+	    'IncludeNumbers
+	    (strcat strIncludedNumbers "," (itoa intPoint))
+	  )
+	  (vlax-put-property objQB 'IncludeNumbers (itoa intPoint))
+	)
+      )
+    )
+  )
+  
+  ;; - SelectPoints->List
+  (defun SelectPoints->List (/ ss scnt lstNumbers)
+    (setq ss (ssget '((0 . "AECC_COGO_POINT"))))
+    (repeat (setq scnt (sslength ss))
+      (setq lstNumbers
+	     (append
+	       lstNumbers
+	       (list
+		 (vlax-get-property
+		   (vlax-ename->vla-object (ssname ss (setq scnt (1- scnt))))
+		   'Number
+		 )
+	       )
+	     )
+      )
     )
   )
 
@@ -197,23 +215,7 @@
     fname
   )
 
-
-  (setq	ss	   (ssget '((0 . "AECC_COGO_POINT")))
-	strDCLFile "pg.DCL"
-  )
-  (repeat (setq scnt (sslength ss))
-    (setq lstNumbers
-	   (append
-	     lstNumbers
-	     (list
-	       (vlax-get-property
-		 (vlax-ename->vla-object (ssname ss (setq scnt (1- scnt))))
-		 'Number
-	       )
-	     )
-	   )
-    )
-  )
+  (setq lstNumbers (SelectPoints->List))
 
   (if (and
 	(setq fname (createdialog))
