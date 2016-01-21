@@ -1,7 +1,7 @@
 // DCL File to be saved as listboxexample.dcl
 // Example courtesy of Lee Mac © 2010 (www.lee-mac.com)
 
-lbox : list_box { width = 25; fixed_width = true; alignment = centered; }
+lbox : list_box { width = 25; fixed_width = true; alignment = centered; allow_accept = true;}
 
 AddToPointGroup : dialog { label ="Add to Point Group"; spacer;
   : column {
