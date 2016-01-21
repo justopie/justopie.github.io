@@ -16,6 +16,7 @@ _site
 *~
 *._LS
 *._DC
+.bat
 
 # OS or Editor folders
 .DS_Store
