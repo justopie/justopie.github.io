@@ -1,5 +1,5 @@
 <div class="highlight"><pre>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">createDialog</span> <span class="brkt">(</span><span class="func">/</span> fn fname<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> createDialog <span class="brkt">(</span><span class="func">/</span> fn fname<span class="brkt">)</span>
     <span class="brkt">(</span><span class="func">setq</span> fname <span class="brkt">(</span><span class="func">vl-filename-mktemp</span> <span class="str">"dcl.dcl"</span><span class="brkt">))</span>
     <span class="brkt">(</span><span class="func">setq</span> fn <span class="brkt">(</span><span class="func">open</span> fname <span class="str">"w"</span><span class="brkt">))</span>
     <span class="brkt">(</span><span class="func">foreach</span> <span class="func">n</span>

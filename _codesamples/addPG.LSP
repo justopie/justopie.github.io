@@ -242,7 +242,7 @@
       (if (not (new_dialog "AddToPointGroup" dcl_id))
 	(exit)
       )
-      (setq Data  (getPointGroupNames (m:c3ddoc) nil)
+      (setq Data  (getPointGroupNames (op:c3ddoc) nil)
 	    e	  ""
 	    n	  ""
 	    group nil

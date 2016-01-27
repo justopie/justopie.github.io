@@ -1,6 +1,6 @@
 <div class="highlight"><pre>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">getPointGroupNames</span> <span class="brkt">(</span>objC3Doc blnAllPoints <span class="func">/</span> lstPG<span class="brkt">)</span>
-    <span class="brkt">(</span><span class="func">setq</span> lstPG	<span class="brkt">(</span><span class="func">CollectionNames-&gt;List</span>
+  <span class="brkt">(</span><span class="func">defun</span> getPointGroupNames <span class="brkt">(</span>objC3Doc blnAllPoints <span class="func">/</span> lstPG<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> lstPG	<span class="brkt">(</span>CollectionNames-&gt;List
 		  <span class="brkt">(</span><span class="func">vlax-get-property</span> objC3Doc <span class="quot">'</span>PointGroups<span class="brkt">)</span>
 		<span class="brkt">)</span>
     <span class="brkt">)</span>

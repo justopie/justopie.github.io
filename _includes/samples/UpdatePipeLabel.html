@@ -1,0 +1,24 @@
+<div class="highlight"><pre>
+<span class="brkt">(</span><span class="func">defun</span> c:r1 <span class="brkt">(</span><span class="func">/</span> m d r g<span class="brkt">)</span>
+
+  <span class="brkt">(</span><span class="func">if</span>
+    <span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">setq</span> g <span class="brkt">(</span><span class="func">getobject</span><span class="brkt">))</span>
+	 <span class="brkt">(</span><span class="func">setq</span> m <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">cons</span> <span class="str">"Corrugated HDPE Pipe"</span> <span class="str">"A-2000"</span><span class="brkt">)</span>
+		       <span class="brkt">(</span><span class="func">cons</span> <span class="str">"Concrete Pipe"</span> <span class="str">"RCP"</span><span class="brkt">)</span>
+		 <span class="brkt">)</span>
+	 <span class="brkt">)</span>
+	 <span class="brkt">(</span><span class="func">setq</span> d <span class="brkt">(</span><span class="func">asc</span> <span class="brkt">(</span><span class="func">m:property</span> g <span class="quot">'</span>Description<span class="brkt">)</span> m<span class="brkt">))</span>
+	 <span class="brkt">(</span><span class="func">setq</span>
+	   r <span class="brkt">(</span><span class="func">strcat</span>
+	       <span class="brkt">(</span><span class="func">itoa</span> <span class="brkt">(</span><span class="func">fix</span> <span class="brkt">(</span><span class="func">*</span> <span class="rea">12.0</span> <span class="brkt">(</span><span class="func">m:property</span> g <span class="quot">'</span>InnerDiameterOrWidth<span class="brkt">))))</span>
+	       <span class="brkt">(</span><span class="func">chr</span> <span class="int">34</span><span class="brkt">)</span>
+	       <span class="str">" "</span>
+	       d
+	     <span class="brkt">)</span>
+	 <span class="brkt">)</span>
+    <span class="brkt">)</span>
+     <span class="brkt">(</span><span class="func">vlax-put-property</span> g <span class="quot">'</span>Description r<span class="brkt">)</span>
+  <span class="brkt">)</span>
+  r
+<span class="brkt">)</span>
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a></div>

@@ -1,10 +1,10 @@
 <div class="highlight"><pre>
-<span class="brkt">(</span><span class="func">defun</span> <span class="func">ContainsPoint</span> <span class="brkt">(</span>objGroup intPoint <span class="func">/</span><span class="brkt">)</span>
+<span class="brkt">(</span><span class="func">defun</span> ContainsPoint <span class="brkt">(</span>objGroup intPoint <span class="func">/</span><span class="brkt">)</span>
   <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> intPoint<span class="brkt">)</span> <span class="quot">'</span>INT<span class="brkt">)</span>
        <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> objGroup<span class="brkt">)</span> <span class="quot">'</span>VLA-OBJECT<span class="brkt">)</span>
        <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">vla-get-ObjectName</span> objGroup<span class="brkt">)</span> <span class="str">"AeccDbPG"</span><span class="brkt">)</span>
       <span class="brkt">)</span>
-    <span class="brkt">(</span><span class="func">=</span> <span class="int">-1</span> <span class="brkt">(</span><span class="func">vlax-invoke</span> objGroup <span class="quot">'</span><span class="func">ContainsPoint</span> intPoint<span class="brkt">))</span>
+    <span class="brkt">(</span><span class="func">=</span> <span class="int">-1</span> <span class="brkt">(</span><span class="func">vlax-invoke</span> objGroup <span class="quot">'</span>ContainsPoint intPoint<span class="brkt">))</span>
   <span class="brkt">)</span>
 <span class="brkt">)</span>
 </pre><a href="#" onclick="selectCode(this); return false;">Select all</a></div>

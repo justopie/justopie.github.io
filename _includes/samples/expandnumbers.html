@@ -1,11 +1,11 @@
 <div class="highlight"><pre>
-<span class="brkt">(</span><span class="func">defun</span> _expandNumbers <span class="brkt">(</span>intStart intEnd <span class="func">/</span> intMiddle <span class="func">lstNumbers</span><span class="brkt">)</span>
+<span class="brkt">(</span><span class="func">defun</span> _expandNumbers <span class="brkt">(</span>intStart intEnd <span class="func">/</span> intMiddle lstNumbers<span class="brkt">)</span>
   <span class="brkt">(</span><span class="func">setq</span> intMiddle <span class="brkt">(</span><span class="func">1+</span> intStart<span class="brkt">))</span>
   <span class="brkt">(</span><span class="func">while</span> <span class="brkt">(</span><span class="func">&lt;</span> intMiddle intEnd<span class="brkt">)</span>
-    <span class="brkt">(</span><span class="func">setq</span> <span class="func">lstNumbers</span> <span class="brkt">(</span><span class="func">append</span> <span class="func">lstNumbers</span> <span class="brkt">(</span><span class="func">list</span> intMiddle<span class="brkt">))</span>
+    <span class="brkt">(</span><span class="func">setq</span> lstNumbers <span class="brkt">(</span><span class="func">append</span> lstNumbers <span class="brkt">(</span><span class="func">list</span> intMiddle<span class="brkt">))</span>
 	  intMiddle  <span class="brkt">(</span><span class="func">1+</span> intMiddle<span class="brkt">)</span>
     <span class="brkt">)</span>
   <span class="brkt">)</span>
-  <span class="brkt">(</span><span class="func">setq</span> <span class="func">lstNumbers</span> <span class="brkt">(</span><span class="func">append</span> <span class="brkt">(</span><span class="func">list</span> intStart<span class="brkt">)</span> <span class="func">lstNumbers</span> <span class="brkt">(</span><span class="func">list</span> intEnd<span class="brkt">)))</span>
+  <span class="brkt">(</span><span class="func">setq</span> lstNumbers <span class="brkt">(</span><span class="func">append</span> <span class="brkt">(</span><span class="func">list</span> intStart<span class="brkt">)</span> lstNumbers <span class="brkt">(</span><span class="func">list</span> intEnd<span class="brkt">)))</span>
 <span class="brkt">)</span>
 </pre><a href="#" onclick="selectCode(this); return false;">Select all</a></div>

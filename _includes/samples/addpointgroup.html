@@ -1,14 +1,14 @@
 <div class="highlight"><pre>
-<span class="brkt">(</span><span class="func">defun</span> <span class="func">AddPointGroup</span> <span class="brkt">(</span>strName <span class="func">/</span> objGroup objGroups<span class="brkt">)</span>
-  <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">setq</span> objGroups <span class="brkt">(</span><span class="func">vlax-get-property</span> <span class="brkt">(</span><span class="func">op:c3ddoc</span><span class="brkt">)</span> <span class="quot">'</span>PointGroups<span class="brkt">))</span>
-	   <span class="brkt">(</span><span class="func">setq</span> objGroup <span class="brkt">(</span><span class="func">addorgetitem</span> objGroups strName<span class="brkt">))</span>
+<span class="brkt">(</span><span class="func">defun</span> AddPointGroup <span class="brkt">(</span>strName <span class="func">/</span> objGroup objGroups<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">setq</span> objGroups <span class="brkt">(</span><span class="func">vlax-get-property</span> <span class="brkt">(</span>op:c3ddoc<span class="brkt">)</span> <span class="quot">'</span>PointGroups<span class="brkt">))</span>
+	   <span class="brkt">(</span><span class="func">setq</span> objGroup <span class="brkt">(</span>addorgetitem objGroups strName<span class="brkt">))</span>
       <span class="brkt">)</span>
     objGroup
   <span class="brkt">)</span>
 <span class="brkt">)</span>
 
-<span class="brkt">(</span><span class="func">defun</span> <span class="func">GetPointGroup</span> <span class="brkt">(</span>strName <span class="func">/</span> objGroup objGroups<span class="brkt">)</span>
-  <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">setq</span> objGroups <span class="brkt">(</span><span class="func">vlax-get-property</span> <span class="brkt">(</span><span class="func">op:c3ddoc</span><span class="brkt">)</span> <span class="quot">'</span>PointGroups<span class="brkt">))</span>
+<span class="brkt">(</span><span class="func">defun</span> GetPointGroup <span class="brkt">(</span>strName <span class="func">/</span> objGroup objGroups<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">setq</span> objGroups <span class="brkt">(</span><span class="func">vlax-get-property</span> <span class="brkt">(</span>op:c3ddoc<span class="brkt">)</span> <span class="quot">'</span>PointGroups<span class="brkt">))</span>
 	   <span class="brkt">(</span><span class="func">=</span> <span class="quot">'</span>VLA-OBJECT <span class="brkt">(</span><span class="func">type</span> <span class="brkt">(</span><span class="func">setq</span> objGroup <span class="brkt">(</span><span class="func">vl-catch-all-apply</span> <span class="quot">'</span><span class="func">vla-item</span> <span class="brkt">(</span><span class="func">list</span> objGroups strName<span class="brkt">)))))</span>
       <span class="brkt">)</span>
     objGroup

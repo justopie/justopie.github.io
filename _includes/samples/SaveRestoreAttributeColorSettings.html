@@ -1,0 +1,99 @@
+<div class="highlight"><pre>
+
+<span class="cmt">;acColorMethodByACI 195</span>
+<span class="cmt">;acColorMethodByBlock 193</span>
+<span class="cmt">;acColorMethodByLayer 192</span>
+<span class="cmt">;acColorMethodByRGB 194</span>
+<span class="cmt">;acColorMethodForeground 197</span>
+
+<span class="brkt">(</span><span class="func">defun</span> c:SaveAttColors <span class="brkt">(</span><span class="func">/</span> cnt y l<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> :VLA_GET_COLOR	<span class="brkt">(</span>object <span class="func">/</span> COLOR-METHOD COLOR-OBJECT color-list<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> color-object <span class="brkt">(</span><span class="func">vla-get-TrueColor</span> object<span class="brkt">)</span>
+	  color-method <span class="brkt">(</span><span class="func">vla-get-ColorMethod</span> color-object<span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">cond</span> <span class="brkt">((</span><span class="func">=</span> color-method <span class="func">acColorMethodByRGB</span><span class="brkt">)</span>
+	   <span class="brkt">(</span><span class="func">setq</span> color-list
+		  <span class="brkt">(</span><span class="func">mapcar</span>
+		    <span class="quot">'</span><span class="brkt">(</span><span class="func">lambda</span> <span class="brkt">(</span>l<span class="brkt">)</span> <span class="brkt">(</span><span class="func">vlax-get</span> color-object l<span class="brkt">))</span>
+		    <span class="quot">'</span><span class="brkt">(</span>Red Green Blue<span class="brkt">)</span>
+		  <span class="brkt">)</span>
+	   <span class="brkt">)</span>
+	  <span class="brkt">)</span>
+	  <span class="brkt">((</span><span class="func">=</span> color-method <span class="func">acColorMethodByACI</span><span class="brkt">)</span>
+	   <span class="brkt">(</span><span class="func">setq</span> color-list <span class="brkt">(</span><span class="func">vla-get-ColorIndex</span> color-object<span class="brkt">))</span>
+	  <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> color-list
+	   <span class="brkt">(</span><span class="func">cons</span> <span class="brkt">(</span><span class="func">vla-get-handle</span> object<span class="brkt">)</span>
+		 <span class="brkt">(</span><span class="func">list</span> color-method color-list<span class="brkt">)</span>
+	   <span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">setq</span> lstHandles <span class="func">nil</span><span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">repeat</span> <span class="brkt">(</span><span class="func">setq</span> cnt <span class="brkt">(</span><span class="func">sslength</span> <span class="brkt">(</span><span class="func">setq</span> y <span class="brkt">(</span><span class="func">ssget</span> <span class="quot">'</span><span class="brkt">((</span><span class="int">0</span> <span class="quot">.</span> <span class="str">"INSERT"</span><span class="brkt">))))))</span>
+    <span class="brkt">(</span><span class="func">foreach</span> <span class="func">n</span>
+	     <span class="brkt">(</span><span class="func">m:safelist</span>
+	       <span class="brkt">(</span><span class="func">vla-getattributes</span>
+		 <span class="brkt">(</span><span class="func">vlax-ename-&gt;vla-object</span> <span class="brkt">(</span><span class="func">ssname</span> y <span class="brkt">(</span><span class="func">setq</span> cnt <span class="brkt">(</span><span class="func">1-</span> cnt<span class="brkt">))))</span>
+	       <span class="brkt">)</span>
+	     <span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">setq</span> l <span class="brkt">(</span><span class="func">append</span> l <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">vla-get-handle</span> <span class="func">n</span><span class="brkt">))))</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">if</span> l
+    <span class="brkt">(</span><span class="func">setq</span> lstHandles
+	   <span class="brkt">(</span><span class="func">mapcar</span>
+	     <span class="brkt">(</span><span class="func">function</span> <span class="brkt">(</span><span class="func">lambda</span> <span class="brkt">(</span>x<span class="brkt">)</span>
+			 <span class="brkt">(</span>:vla_get_color
+			   <span class="brkt">(</span><span class="func">vlax-ename-&gt;vla-object</span> <span class="brkt">(</span><span class="func">handent</span> x<span class="brkt">))</span>
+			 <span class="brkt">)</span>
+		       <span class="brkt">)</span>
+	     <span class="brkt">)</span>
+	     l
+	   <span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+<span class="brkt">)</span>
+<span class="brkt">(</span><span class="func">defun</span> c:RestoreAttColors <span class="brkt">(</span><span class="func">/</span><span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> :VLA_SET_COLOR	<span class="brkt">(</span>object color-list <span class="func">/</span> COLOR-METHOD<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">or</span>	color-object
+	<span class="brkt">(</span><span class="func">setq</span> color-object
+	       <span class="brkt">(</span><span class="func">vla-GetInterfaceObject</span>
+		 <span class="brkt">(</span><span class="func">setq</span> :ACAD_OBJECT <span class="brkt">(</span><span class="func">vlax-get-acad-object</span><span class="brkt">))</span>
+		 <span class="brkt">(</span><span class="func">strcat</span> <span class="str">"AutoCAD.AcCmColor."</span>
+			 <span class="brkt">(</span><span class="func">substr</span> <span class="brkt">(</span><span class="func">getvar</span> <span class="quot">'</span>ACADVER<span class="brkt">)</span> <span class="int">1</span> <span class="int">2</span><span class="brkt">)</span>
+		 <span class="brkt">)</span>
+	       <span class="brkt">)</span>
+	<span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> color-method <span class="brkt">(</span><span class="func">nth</span> <span class="int">0</span> color-list<span class="brkt">))</span>
+    <span class="brkt">(</span><span class="func">vla-put-ColorMethod</span> color-object color-method<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">=</span> color-method <span class="func">acColorMethodByRGB</span><span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">vla-SetRGB</span>
+	color-object
+	<span class="brkt">(</span><span class="func">nth</span> <span class="int">0</span> <span class="brkt">(</span><span class="func">setq</span> color-list <span class="brkt">(</span><span class="func">nth</span> <span class="int">1</span> color-list<span class="brkt">)))</span>
+	<span class="brkt">(</span><span class="func">nth</span> <span class="int">1</span> color-list<span class="brkt">)</span>
+	<span class="brkt">(</span><span class="func">nth</span> <span class="int">2</span> color-list<span class="brkt">)</span>
+      <span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">vla-put-ColorIndex</span> color-object <span class="brkt">(</span><span class="func">nth</span> <span class="int">1</span> color-list<span class="brkt">))</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">vla-put-TrueColor</span> object color-object<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">vlax-release-object</span> color-object<span class="brkt">)</span>
+    object
+  <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">and</span> lstHandles
+	   <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> lstHandles<span class="brkt">)</span> <span class="quot">'</span><span class="func">LIST</span><span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">foreach</span> <span class="func">n</span> lstHandles
+      <span class="brkt">(</span>:VLA_SET_COLOR
+	<span class="brkt">(</span><span class="func">vlax-ename-&gt;vla-object</span> <span class="brkt">(</span><span class="func">handent</span> <span class="brkt">(</span><span class="func">car</span> <span class="func">n</span><span class="brkt">)))</span>
+	<span class="brkt">(</span><span class="func">cdr</span> <span class="func">n</span><span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">princ</span><span class="brkt">)</span>
+<span class="brkt">)</span>
+  <span class="cmt">;;(setq u (mapcar (function (lambda (x) (:vla_get_color (vlax-ename-&gt;vla-object (handent x))))) lstHandles))</span>
+<span class="brkt">(</span><span class="func">setq</span> lstHandles u<span class="brkt">)</span>
+  
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a></div>

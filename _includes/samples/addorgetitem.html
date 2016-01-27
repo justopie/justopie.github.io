@@ -1,5 +1,5 @@
 <div class="highlight"><pre>
-<span class="brkt">(</span><span class="func">defun</span> <span class="func">addorgetitem</span> <span class="brkt">(</span>objCollection strName <span class="func">/</span> objFromCollection<span class="brkt">)</span>
+<span class="brkt">(</span><span class="func">defun</span> addorgetitem <span class="brkt">(</span>objCollection strName <span class="func">/</span> objFromCollection<span class="brkt">)</span>
   <span class="brkt">(</span><span class="func">or</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> <span class="brkt">(</span><span class="func">setq</span> objFromCollection
               <span class="brkt">(</span><span class="func">vl-catch-all-apply</span>
             <span class="quot">'</span><span class="func">vla-add</span>

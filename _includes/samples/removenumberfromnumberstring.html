@@ -5,8 +5,8 @@
 	   <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> strNumbers<span class="brkt">)</span> <span class="quot">'</span>STR<span class="brkt">)</span>
       <span class="brkt">)</span>
     <span class="brkt">(</span><span class="func">progn</span>
-      <span class="brkt">(</span><span class="func">setq</span> <span class="func">lstNumbers</span> <span class="brkt">(</span>_explode strNumbers <span class="str">","</span><span class="brkt">))</span>
-      <span class="brkt">(</span><span class="func">foreach</span> <span class="func">n</span> <span class="func">lstNumbers</span>
+      <span class="brkt">(</span><span class="func">setq</span> lstNumbers <span class="brkt">(</span>_explode strNumbers <span class="str">","</span><span class="brkt">))</span>
+      <span class="brkt">(</span><span class="func">foreach</span> <span class="func">n</span> lstNumbers
 	<span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">vl-string-search</span> <span class="str">"-"</span> <span class="func">n</span><span class="brkt">)</span>
 	  <span class="brkt">(</span><span class="func">setq</span> lstTemp <span class="brkt">(</span>_explode <span class="func">n</span> <span class="str">"-"</span><span class="brkt">)</span>
 		lstTemp <span class="brkt">(</span>_expandNumbers <span class="brkt">(</span><span class="func">atoi</span> <span class="brkt">(</span><span class="func">car</span> lstTemp<span class="brkt">))(</span><span class="func">atoi</span> <span class="brkt">(</span><span class="func">last</span> lstTemp<span class="brkt">)))</span>

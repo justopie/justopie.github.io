@@ -1,5 +1,5 @@
 <div class="highlight"><pre>
-<span class="brkt">(</span><span class="func">defun</span> <span class="func">OP:c3ddoc</span> <span class="brkt">(</span><span class="func">/</span> prod verstr c3dver<span class="brkt">)</span>
+<span class="brkt">(</span><span class="func">defun</span> OP:c3ddoc <span class="brkt">(</span><span class="func">/</span> prod verstr c3dver<span class="brkt">)</span>
     <span class="brkt">(</span><span class="func">defun</span> c3dver <span class="brkt">(</span><span class="func">/</span> c3d *acad*<span class="brkt">)</span>
       <span class="brkt">(</span><span class="func">setq</span> C3D	<span class="brkt">(</span><span class="func">strcat</span>	<span class="str">"HKEY_LOCAL_MACHINE\\"</span>
 			<span class="brkt">(</span><span class="func">if</span> <span class="func">vlax-user-product-key</span>
@@ -20,9 +20,9 @@
       <span class="brkt">)</span>
       c3d
     <span class="brkt">)</span>
-    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">not</span> <span class="func">_C3DDoc</span><span class="brkt">)</span> <span class="cmt">;; Check to see if a global variable is set</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">not</span> _C3DDoc<span class="brkt">)</span> <span class="cmt">;; Check to see if a global variable is set</span>
       <span class="brkt">(</span><span class="func">setq</span>
-	<span class="func">_C3DDoc</span>	<span class="brkt">(</span><span class="func">vla-get-activedocument</span>
+	_C3DDoc	<span class="brkt">(</span><span class="func">vla-get-activedocument</span>
 		  <span class="brkt">(</span><span class="func">vla-getinterfaceobject</span>
 		    <span class="brkt">(</span><span class="func">vlax-get-acad-object</span><span class="brkt">)</span>
 		    <span class="brkt">(</span><span class="func">strcat</span> <span class="str">"AeccXUiLand.AeccApplication."</span> <span class="brkt">(</span>c3dver<span class="brkt">))</span>
@@ -31,6 +31,6 @@
 
       <span class="brkt">)</span>
     <span class="brkt">)</span>
-    <span class="func">_C3DDoc</span>  <span class="cmt">;; Return reference to active civil 3d document object</span>
+    _C3DDoc  <span class="cmt">;; Return reference to active civil 3d document object</span>
   <span class="brkt">)</span>
 </pre><a href="#" onclick="selectCode(this); return false;">Select all</a></div>

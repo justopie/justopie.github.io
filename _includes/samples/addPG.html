@@ -1,18 +1,35 @@
 <div class="highlight"><pre>
-<span class="brkt">(</span><span class="func">defun</span> <span class="func">C:AddToPG</span> <span class="brkt">(</span><span class="func">/</span>	       _doc	    <span class="func">dcl_id</span>	 <span class="func">data</span>
-		  value	       group	    <span class="func">lstNumbers</span>	 strMsg
-		  <span class="func">objPG</span>	       	    blnClick	 
+<span class="brkt">(</span><span class="func">defun</span> C:AddToPG <span class="brkt">(</span><span class="func">/</span>	       _doc	    dcl_id	 data
+		  value	       group	    lstNumbers	 strMsg
+		  objPG	       	    blnClick	 
 		  strDCLFile   strDCLFilePath		 fname
-		  <span class="func">strIncludedNumbers</span>
+		  strIncludedNumbers
 		 <span class="brkt">)</span>
   <span class="cmt">;;COLLECTIONNAMES-&gt;LIST</span>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">CollectionNames-&gt;list</span> <span class="brkt">(</span>objCollection <span class="func">/</span> lstNames<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> CollectionNames-&gt;list <span class="brkt">(</span>objCollection <span class="func">/</span> lstNames<span class="brkt">)</span>
     <span class="brkt">(</span><span class="func">vlax-for</span> <span class="func">n</span>	objCollection
       <span class="brkt">(</span><span class="func">setq</span> lstNames <span class="brkt">(</span><span class="func">append</span> lstNames <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">vla-get-name</span> <span class="func">n</span><span class="brkt">))))</span>
     <span class="brkt">)</span>
   <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> CollectionProperty-&gt;list
+	 <span class="brkt">(</span>objCollection symProperty/ lstProperties<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> objCollection<span class="brkt">)</span> <span class="quot">'</span>VLA-OBJECT<span class="brkt">)</span>
+	     <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> symProperty<span class="brkt">)</span> <span class="quot">'</span>SYM<span class="brkt">)</span>
+	<span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">vlax-for</span>	<span class="func">n</span> objCollection
+	<span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">vlax-property-available-p</span> <span class="func">n</span> synProperty<span class="brkt">)</span>
+	  <span class="brkt">(</span><span class="func">setq</span>	lstProperties
+		 <span class="brkt">(</span><span class="func">append</span>
+		   lstProperties
+		   <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">vlax-get-property</span> <span class="func">n</span> symProperty<span class="brkt">))</span>
+		 <span class="brkt">)</span>
+	  <span class="brkt">)</span>
+	<span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
   <span class="cmt">;;UPDATELIST</span>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">UpdateList</span> <span class="brkt">(</span>key lst<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> UpdateList <span class="brkt">(</span>key lst<span class="brkt">)</span>
 
     <span class="cmt">;; This function updates the list_box associated with the specified key</span>
     <span class="cmt">;; using the contents of the supplied lst</span>
@@ -23,7 +40,7 @@
   <span class="brkt">)</span>
 
   <span class="cmt">;; - Get Civil 3D Active Document</span>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">OP:c3ddoc</span> <span class="brkt">(</span><span class="func">/</span> prod verstr c3dver<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> OP:c3ddoc <span class="brkt">(</span><span class="func">/</span> prod verstr c3dver<span class="brkt">)</span>
     <span class="brkt">(</span><span class="func">defun</span> c3dver <span class="brkt">(</span><span class="func">/</span> c3d *acad*<span class="brkt">)</span>
       <span class="brkt">(</span><span class="func">setq</span> C3D	<span class="brkt">(</span><span class="func">strcat</span>	<span class="str">"HKEY_LOCAL_MACHINE\\"</span>
 			<span class="brkt">(</span><span class="func">if</span> <span class="func">vlax-user-product-key</span>
@@ -44,9 +61,9 @@
       <span class="brkt">)</span>
       c3d
     <span class="brkt">)</span>
-    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">not</span> <span class="func">_C3DDoc</span><span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">not</span> _C3DDoc<span class="brkt">)</span>
       <span class="brkt">(</span><span class="func">setq</span>
-	<span class="func">_C3DDoc</span>	<span class="brkt">(</span><span class="func">vla-get-activedocument</span>
+	_C3DDoc	<span class="brkt">(</span><span class="func">vla-get-activedocument</span>
 		  <span class="brkt">(</span><span class="func">vla-getinterfaceobject</span>
 		    <span class="brkt">(</span><span class="func">vlax-get-acad-object</span><span class="brkt">)</span>
 		    <span class="brkt">(</span><span class="func">strcat</span> <span class="str">"AeccXUiLand.AeccApplication."</span> <span class="brkt">(</span>c3dver<span class="brkt">))</span>
@@ -55,11 +72,11 @@
 
       <span class="brkt">)</span>
     <span class="brkt">)</span>
-    <span class="func">_C3DDoc</span>
+    _C3DDoc
   <span class="brkt">)</span>
 
   <span class="cmt">;; - AddOrGetItem</span>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">addorgetitem</span> <span class="brkt">(</span>objCollection strName <span class="func">/</span> objFromCollection<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> addorgetitem <span class="brkt">(</span>objCollection strName <span class="func">/</span> objFromCollection<span class="brkt">)</span>
     <span class="brkt">(</span><span class="func">or</span>	<span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> <span class="brkt">(</span><span class="func">setq</span> objFromCollection
 			<span class="brkt">(</span><span class="func">vl-catch-all-apply</span>
 			  <span class="quot">'</span><span class="func">vla-add</span>
@@ -86,17 +103,17 @@
   <span class="brkt">)</span>
 
   <span class="cmt">;; - AddPointGroup</span>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">AddPointGroup</span> <span class="brkt">(</span>strName <span class="func">/</span> objGroup objGroups<span class="brkt">)</span>
-    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">setq</span> objGroups <span class="brkt">(</span><span class="func">vlax-get-property</span> <span class="brkt">(</span><span class="func">op:c3ddoc</span><span class="brkt">)</span> <span class="quot">'</span>PointGroups<span class="brkt">))</span>
-	     <span class="brkt">(</span><span class="func">setq</span> objGroup <span class="brkt">(</span><span class="func">addorgetitem</span> objGroups strName<span class="brkt">))</span>
+  <span class="brkt">(</span><span class="func">defun</span> AddPointGroup <span class="brkt">(</span>strName <span class="func">/</span> objGroup objGroups<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">setq</span> objGroups <span class="brkt">(</span><span class="func">vlax-get-property</span> <span class="brkt">(</span>op:c3ddoc<span class="brkt">)</span> <span class="quot">'</span>PointGroups<span class="brkt">))</span>
+	     <span class="brkt">(</span><span class="func">setq</span> objGroup <span class="brkt">(</span>addorgetitem objGroups strName<span class="brkt">))</span>
 	<span class="brkt">)</span>
       objGroup
     <span class="brkt">)</span>
   <span class="brkt">)</span>
 
   <span class="cmt">;; - GetPointGroup</span>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">GetPointGroup</span> <span class="brkt">(</span>strName <span class="func">/</span> objGroup objGroups<span class="brkt">)</span>
-    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">setq</span> objGroups <span class="brkt">(</span><span class="func">vlax-get-property</span> <span class="brkt">(</span><span class="func">op:c3ddoc</span><span class="brkt">)</span> <span class="quot">'</span>PointGroups<span class="brkt">))</span>
+  <span class="brkt">(</span><span class="func">defun</span> GetPointGroup <span class="brkt">(</span>strName <span class="func">/</span> objGroup objGroups<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">setq</span> objGroups <span class="brkt">(</span><span class="func">vlax-get-property</span> <span class="brkt">(</span>op:c3ddoc<span class="brkt">)</span> <span class="quot">'</span>PointGroups<span class="brkt">))</span>
 	     <span class="brkt">(</span><span class="func">=</span>	<span class="quot">'</span>VLA-OBJECT
 		<span class="brkt">(</span><span class="func">type</span> <span class="brkt">(</span><span class="func">setq</span> objGroup <span class="brkt">(</span><span class="func">vl-catch-all-apply</span>
 				       <span class="quot">'</span><span class="func">vla-item</span>
@@ -111,17 +128,17 @@
   <span class="brkt">)</span>
 
   <span class="cmt">;; - ContainsPoint</span>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">ContainsPoint</span> <span class="brkt">(</span>objGroup intPoint <span class="func">/</span><span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> ContainsPoint <span class="brkt">(</span>objGroup intPoint <span class="func">/</span><span class="brkt">)</span>
     <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> intPoint<span class="brkt">)</span> <span class="quot">'</span>INT<span class="brkt">)</span>
 	     <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> objGroup<span class="brkt">)</span> <span class="quot">'</span>VLA-OBJECT<span class="brkt">)</span>
 	     <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">vla-get-ObjectName</span> objGroup<span class="brkt">)</span> <span class="str">"AeccDbPG"</span><span class="brkt">)</span>
 	<span class="brkt">)</span>
-      <span class="brkt">(</span><span class="func">=</span> <span class="int">-1</span> <span class="brkt">(</span><span class="func">vlax-invoke</span> objGroup <span class="quot">'</span><span class="func">ContainsPoint</span> intPoint<span class="brkt">))</span>
+      <span class="brkt">(</span><span class="func">=</span> <span class="int">-1</span> <span class="brkt">(</span><span class="func">vlax-invoke</span> objGroup <span class="quot">'</span>ContainsPoint intPoint<span class="brkt">))</span>
     <span class="brkt">)</span>
   <span class="brkt">)</span>
 
   <span class="cmt">;; - GetQueryBuilder</span>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">GetQueryBuilder</span> <span class="brkt">(</span>objGroup<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> GetQueryBuilder <span class="brkt">(</span>objGroup<span class="brkt">)</span>
     <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> objGroup<span class="brkt">)</span> <span class="quot">'</span>VLA-OBJECT<span class="brkt">)</span>
 	     <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">vla-get-ObjectName</span> objGroup<span class="brkt">)</span> <span class="str">"AeccDbPG"</span><span class="brkt">)</span>
 	<span class="brkt">)</span>
@@ -130,21 +147,21 @@
   <span class="brkt">)</span>
 
   <span class="cmt">;; - AddPointToGroup</span>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">AddPointToGroup</span> <span class="brkt">(</span>intPoint objGroup <span class="func">/</span> objQB <span class="func">strIncludedNumbers</span><span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> AddPointToGroup <span class="brkt">(</span>intPoint objGroup <span class="func">/</span> objQB strIncludedNumbers<span class="brkt">)</span>
     <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> intPoint<span class="brkt">)</span> <span class="quot">'</span>INT<span class="brkt">)</span>
 	     <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> objGroup<span class="brkt">)</span> <span class="quot">'</span>VLA-OBJECT<span class="brkt">)</span>
 	     <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">vla-get-ObjectName</span> objGroup<span class="brkt">)</span> <span class="str">"AeccDbPG"</span><span class="brkt">)</span>
-	     <span class="brkt">(</span><span class="func">not</span> <span class="brkt">(</span><span class="func">ContainsPoint</span> objGroup intPoint<span class="brkt">))</span>
+	     <span class="brkt">(</span><span class="func">not</span> <span class="brkt">(</span>ContainsPoint objGroup intPoint<span class="brkt">))</span>
 	<span class="brkt">)</span>
       <span class="brkt">(</span><span class="func">progn</span>
-	<span class="brkt">(</span><span class="func">setq</span> objQB		 <span class="brkt">(</span><span class="func">GetQueryBuilder</span> objGroup<span class="brkt">)</span>
-	      <span class="func">strIncludedNumbers</span> <span class="brkt">(</span><span class="func">vlax-get-property</span> objQB <span class="quot">'</span>IncludeNumbers<span class="brkt">)</span>
+	<span class="brkt">(</span><span class="func">setq</span> objQB		 <span class="brkt">(</span>GetQueryBuilder objGroup<span class="brkt">)</span>
+	      strIncludedNumbers <span class="brkt">(</span><span class="func">vlax-get-property</span> objQB <span class="quot">'</span>IncludeNumbers<span class="brkt">)</span>
 	<span class="brkt">)</span>
-	<span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">&gt;</span> <span class="brkt">(</span><span class="func">strlen</span> <span class="func">strIncludedNumbers</span><span class="brkt">)</span> <span class="int">0</span><span class="brkt">)</span>
+	<span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">&gt;</span> <span class="brkt">(</span><span class="func">strlen</span> strIncludedNumbers<span class="brkt">)</span> <span class="int">0</span><span class="brkt">)</span>
 	  <span class="brkt">(</span><span class="func">vlax-put-property</span>
 	    objQB
 	    <span class="quot">'</span>IncludeNumbers
-	    <span class="brkt">(</span><span class="func">strcat</span> <span class="func">strIncludedNumbers</span> <span class="str">","</span> <span class="brkt">(</span><span class="func">itoa</span> intPoint<span class="brkt">))</span>
+	    <span class="brkt">(</span><span class="func">strcat</span> strIncludedNumbers <span class="str">","</span> <span class="brkt">(</span><span class="func">itoa</span> intPoint<span class="brkt">))</span>
 	  <span class="brkt">)</span>
 	  <span class="brkt">(</span><span class="func">vlax-put-property</span> objQB <span class="quot">'</span>IncludeNumbers <span class="brkt">(</span><span class="func">itoa</span> intPoint<span class="brkt">))</span>
 	<span class="brkt">)</span>
@@ -153,15 +170,15 @@
   <span class="brkt">)</span>
   
   <span class="cmt">;; - SelectPoints-&gt;List</span>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">SelectPoints-&gt;List</span> <span class="brkt">(</span><span class="func">/</span> <span class="func">ss</span> scnt <span class="func">lstNumbers</span><span class="brkt">)</span>
-    <span class="brkt">(</span><span class="func">setq</span> <span class="func">ss</span> <span class="brkt">(</span><span class="func">ssget</span> <span class="quot">'</span><span class="brkt">((</span><span class="int">0</span> <span class="quot">.</span> <span class="str">"AECC_COGO_POINT"</span><span class="brkt">))))</span>
-    <span class="brkt">(</span><span class="func">repeat</span> <span class="brkt">(</span><span class="func">setq</span> scnt <span class="brkt">(</span><span class="func">sslength</span> <span class="func">ss</span><span class="brkt">))</span>
-      <span class="brkt">(</span><span class="func">setq</span> <span class="func">lstNumbers</span>
+  <span class="brkt">(</span><span class="func">defun</span> SelectPoints-&gt;List <span class="brkt">(</span><span class="func">/</span> ss scnt lstNumbers<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> ss <span class="brkt">(</span><span class="func">ssget</span> <span class="quot">'</span><span class="brkt">((</span><span class="int">0</span> <span class="quot">.</span> <span class="str">"AECC_COGO_POINT"</span><span class="brkt">))))</span>
+    <span class="brkt">(</span><span class="func">repeat</span> <span class="brkt">(</span><span class="func">setq</span> scnt <span class="brkt">(</span><span class="func">sslength</span> ss<span class="brkt">))</span>
+      <span class="brkt">(</span><span class="func">setq</span> lstNumbers
 	     <span class="brkt">(</span><span class="func">append</span>
-	       <span class="func">lstNumbers</span>
+	       lstNumbers
 	       <span class="brkt">(</span><span class="func">list</span>
 		 <span class="brkt">(</span><span class="func">vlax-get-property</span>
-		   <span class="brkt">(</span><span class="func">vlax-ename-&gt;vla-object</span> <span class="brkt">(</span><span class="func">ssname</span> <span class="func">ss</span> <span class="brkt">(</span><span class="func">setq</span> scnt <span class="brkt">(</span><span class="func">1-</span> scnt<span class="brkt">))))</span>
+		   <span class="brkt">(</span><span class="func">vlax-ename-&gt;vla-object</span> <span class="brkt">(</span><span class="func">ssname</span> ss <span class="brkt">(</span><span class="func">setq</span> scnt <span class="brkt">(</span><span class="func">1-</span> scnt<span class="brkt">))))</span>
 		   <span class="quot">'</span>Number
 		 <span class="brkt">)</span>
 	       <span class="brkt">)</span>
@@ -171,8 +188,8 @@
   <span class="brkt">)</span>
 
   <span class="cmt">;; getPointGroupNames</span>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">getPointGroupNames</span> <span class="brkt">(</span>objC3Doc blnAllPoints <span class="func">/</span> lstPG<span class="brkt">)</span>
-    <span class="brkt">(</span><span class="func">setq</span> lstPG	<span class="brkt">(</span><span class="func">CollectionNames-&gt;List</span>
+  <span class="brkt">(</span><span class="func">defun</span> getPointGroupNames <span class="brkt">(</span>objC3Doc blnAllPoints <span class="func">/</span> lstPG<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> lstPG	<span class="brkt">(</span>CollectionNames-&gt;List
 		  <span class="brkt">(</span><span class="func">vlax-get-property</span> objC3Doc <span class="quot">'</span>PointGroups<span class="brkt">)</span>
 		<span class="brkt">)</span>
     <span class="brkt">)</span>
@@ -183,7 +200,7 @@
   <span class="brkt">)</span>
 
   <span class="cmt">;; createDialog</span>
-  <span class="brkt">(</span><span class="func">defun</span> <span class="func">createDialog</span> <span class="brkt">(</span><span class="func">/</span> fn fname<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> createDialog <span class="brkt">(</span><span class="func">/</span> fn fname<span class="brkt">)</span>
     <span class="brkt">(</span><span class="func">setq</span> fname <span class="brkt">(</span><span class="func">vl-filename-mktemp</span> <span class="str">"dcl.dcl"</span><span class="brkt">))</span>
     <span class="brkt">(</span><span class="func">setq</span> fn <span class="brkt">(</span><span class="func">open</span> fname <span class="str">"w"</span><span class="brkt">))</span>
     <span class="brkt">(</span><span class="func">foreach</span> <span class="func">n</span>
@@ -216,22 +233,22 @@
     fname
   <span class="brkt">)</span>
 
-  <span class="brkt">(</span><span class="func">setq</span> <span class="func">lstNumbers</span> <span class="brkt">(</span><span class="func">SelectPoints-&gt;List</span><span class="brkt">))</span>
+  <span class="brkt">(</span><span class="func">setq</span> lstNumbers <span class="brkt">(</span>SelectPoints-&gt;List<span class="brkt">))</span>
 
   <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">and</span>
-	<span class="brkt">(</span><span class="func">setq</span> fname <span class="brkt">(</span><span class="func">createdialog</span><span class="brkt">))</span>
-	<span class="brkt">(</span><span class="func">setq</span> <span class="func">dcl_id</span> <span class="brkt">(</span><span class="func">load_dialog</span> fname<span class="brkt">))</span>
+	<span class="brkt">(</span><span class="func">setq</span> fname <span class="brkt">(</span>createdialog<span class="brkt">))</span>
+	<span class="brkt">(</span><span class="func">setq</span> dcl_id <span class="brkt">(</span><span class="func">load_dialog</span> fname<span class="brkt">))</span>
       <span class="brkt">)</span>
     <span class="brkt">(</span><span class="func">progn</span>
-      <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">not</span> <span class="brkt">(</span><span class="func">new_dialog</span> <span class="str">"AddToPointGroup"</span> <span class="func">dcl_id</span><span class="brkt">))</span>
+      <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">not</span> <span class="brkt">(</span><span class="func">new_dialog</span> <span class="str">"AddToPointGroup"</span> dcl_id<span class="brkt">))</span>
 	<span class="brkt">(</span><span class="func">exit</span><span class="brkt">)</span>
       <span class="brkt">)</span>
-      <span class="brkt">(</span><span class="func">setq</span> <span class="func">Data</span>  <span class="brkt">(</span><span class="func">getPointGroupNames</span> <span class="brkt">(</span><span class="func">m:c3ddoc</span><span class="brkt">)</span> <span class="func">nil</span><span class="brkt">)</span>
-	    <span class="func">e</span>	  <span class="str">""</span>
+      <span class="brkt">(</span><span class="func">setq</span> Data  <span class="brkt">(</span>getPointGroupNames <span class="brkt">(</span>op:c3ddoc<span class="brkt">)</span> <span class="func">nil</span><span class="brkt">)</span>
+	    e	  <span class="str">""</span>
 	    <span class="func">n</span>	  <span class="str">""</span>
 	    group <span class="func">nil</span>
       <span class="brkt">)</span>
-      <span class="brkt">(</span><span class="func">UpdateList</span> <span class="str">"ePG"</span> <span class="func">Data</span><span class="brkt">)</span>
+      <span class="brkt">(</span>UpdateList <span class="str">"ePG"</span> Data<span class="brkt">)</span>
       <span class="brkt">(</span><span class="func">action_tile</span>
 	<span class="str">"cancel"</span>
 	<span class="str">"(done_dialog) (setq blnClick nil)"</span>
@@ -245,27 +262,27 @@
 	<span class="brkt">)</span>
       <span class="brkt">)</span>
       <span class="brkt">(</span><span class="func">start_dialog</span><span class="brkt">)</span>
-      <span class="brkt">(</span><span class="func">unload_dialog</span> <span class="func">dcl_id</span><span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">unload_dialog</span> dcl_id<span class="brkt">)</span>
       <span class="brkt">(</span><span class="func">vl-file-delete</span> fname<span class="brkt">)</span>
       <span class="brkt">(</span><span class="func">if</span> blnClick
 	<span class="brkt">(</span><span class="func">progn</span>
-	  <span class="brkt">(</span><span class="func">cond</span>	<span class="brkt">((</span><span class="func">&gt;</span> <span class="brkt">(</span><span class="func">strlen</span> <span class="func">e</span><span class="brkt">)</span> <span class="int">0</span><span class="brkt">)</span>
-		 <span class="brkt">(</span><span class="func">setq</span> value  <span class="brkt">(</span><span class="func">nth</span> <span class="brkt">(</span><span class="func">atoi</span> <span class="func">e</span><span class="brkt">)</span> <span class="func">Data</span><span class="brkt">)</span>
+	  <span class="brkt">(</span><span class="func">cond</span>	<span class="brkt">((</span><span class="func">&gt;</span> <span class="brkt">(</span><span class="func">strlen</span> e<span class="brkt">)</span> <span class="int">0</span><span class="brkt">)</span>
+		 <span class="brkt">(</span><span class="func">setq</span> value  <span class="brkt">(</span><span class="func">nth</span> <span class="brkt">(</span><span class="func">atoi</span> e<span class="brkt">)</span> Data<span class="brkt">)</span>
 		       strMsg <span class="brkt">(</span><span class="func">strcat</span> <span class="str">"Existing Point Group: "</span> value<span class="brkt">)</span>
-		       <span class="func">objPG</span>  <span class="brkt">(</span><span class="func">GetPointGroup</span> value<span class="brkt">)</span>
+		       objPG  <span class="brkt">(</span>GetPointGroup value<span class="brkt">)</span>
 		 <span class="brkt">)</span>
 		<span class="brkt">)</span>
 		<span class="brkt">((</span><span class="func">&gt;</span> <span class="brkt">(</span><span class="func">strlen</span> <span class="func">n</span><span class="brkt">)</span> <span class="int">0</span><span class="brkt">)</span>
 		 <span class="brkt">(</span><span class="func">setq</span> value  <span class="func">n</span>
 		       strMsg <span class="brkt">(</span><span class="func">strcat</span> <span class="str">"New Point Group: "</span> value<span class="brkt">)</span>
-		       <span class="func">objPG</span>  <span class="brkt">(</span><span class="func">AddPointGroup</span> value<span class="brkt">)</span>
+		       objPG  <span class="brkt">(</span>AddPointGroup value<span class="brkt">)</span>
 		 <span class="brkt">)</span>
 		<span class="brkt">)</span>
 	  <span class="brkt">)</span>
-	  <span class="brkt">(</span><span class="func">foreach</span> <span class="func">n</span> <span class="brkt">(</span><span class="func">vl-sort</span> <span class="func">lstNumbers</span> <span class="quot">'</span><span class="func">&lt;</span><span class="brkt">)</span>
-	    <span class="brkt">(</span><span class="func">AddPointToGroup</span> <span class="func">n</span> <span class="func">objPG</span><span class="brkt">)</span>
+	  <span class="brkt">(</span><span class="func">foreach</span> <span class="func">n</span> <span class="brkt">(</span><span class="func">vl-sort</span> lstNumbers <span class="quot">'</span><span class="func">&lt;</span><span class="brkt">)</span>
+	    <span class="brkt">(</span>AddPointToGroup <span class="func">n</span> objPG<span class="brkt">)</span>
 	  <span class="brkt">)</span>
-	  <span class="brkt">(</span><span class="func">setq</span> strMsg <span class="brkt">(</span><span class="func">strcat</span> <span class="str">"\n\n"</span><span class="brkt">(</span><span class="func">itoa</span> <span class="brkt">(</span><span class="func">length</span> <span class="func">lstNumbers</span><span class="brkt">))</span> <span class="str">" Point Numbers added to "</span> strMsg<span class="brkt">))</span>
+	  <span class="brkt">(</span><span class="func">setq</span> strMsg <span class="brkt">(</span><span class="func">strcat</span> <span class="str">"\n\n"</span><span class="brkt">(</span><span class="func">itoa</span> <span class="brkt">(</span><span class="func">length</span> lstNumbers<span class="brkt">))</span> <span class="str">" Point Numbers added to "</span> strMsg<span class="brkt">))</span>
 	  <span class="brkt">(</span><span class="func">princ</span> strMsg<span class="brkt">)</span>
 	<span class="brkt">)</span>
       <span class="brkt">)</span>
