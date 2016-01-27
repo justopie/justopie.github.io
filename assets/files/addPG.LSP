@@ -10,23 +10,6 @@
       (setq lstNames (append lstNames (list (vla-get-name n))))
     )
   )
-  (defun CollectionProperty->list
-	 (objCollection symProperty/ lstProperties)
-    (if	(and (= (type objCollection) 'VLA-OBJECT)
-	     (= (type symProperty) 'SYM)
-	)
-      (vlax-for	n objCollection
-	(if (vlax-property-available-p n synProperty)
-	  (setq	lstProperties
-		 (append
-		   lstProperties
-		   (list (vlax-get-property n symProperty))
-		 )
-	  )
-	)
-      )
-    )
-  )
   ;;UPDATELIST
   (defun UpdateList (key lst)
 
@@ -206,12 +189,12 @@
 	     (list
 	       "AddToPointGroup : dialog { label = \"Add to Point Group\";"
 	       "  : column {"
-	       "    : text { value = \"Existing Point Groups\"; }"
 	       "    : list_box { width = 25;"
 	       "                 fixed_width = true;"
 	       "                 alignment = centered;"
 	       "                 allow_accept = true;"
-	       "                 key = \"ePG\"; }"
+	       "                 key = \"ePG\";"
+	       "                 label = \"Make\"; }"
 	       "    : text { value = \"Create Point Group\"; }"
 	       "    : edit_box {"
 	       "                allow_accept = true;"

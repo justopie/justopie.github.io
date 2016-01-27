@@ -1,0 +1,12 @@
+<div class="highlight"><pre>
+  <span class="brkt">(</span><span class="func">defun</span> <span class="func">getPointGroupNames</span> <span class="brkt">(</span>objC3Doc blnAllPoints <span class="func">/</span> lstPG<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> lstPG	<span class="brkt">(</span><span class="func">CollectionNames-&gt;List</span>
+		  <span class="brkt">(</span><span class="func">vlax-get-property</span> objC3Doc <span class="quot">'</span>PointGroups<span class="brkt">)</span>
+		<span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">not</span> blnAllPoints<span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">setq</span> lstPG <span class="brkt">(</span><span class="func">vl-remove</span> <span class="str">"_All Points"</span> lstPG<span class="brkt">))</span>
+    <span class="brkt">)</span>
+    lstPG
+  <span class="brkt">)</span>
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a></div>
