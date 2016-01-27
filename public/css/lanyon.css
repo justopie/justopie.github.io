@@ -559,3 +559,24 @@ div.post img {
   float: right;
   display: inline;
 }
+div.highlight a{
+  font-size: .7rem;
+  text-transform: uppercase;
+  color: #1b1b1b !important;
+  font-weight: normal;
+  text-decoration: none;
+  margin: 0 0 0 15px;
+  border-top: 1px solid #6a9fb5;
+  border-bottom: 1px solid #6a9fb5;
+  border-left: 1px solid #6a9fb5;
+  border-right: 1px solid #6a9fb5;
+  background: #EAEAEA;
+  padding: 7px 10px 5px 10px;
+  border-radius: 0 0 7px 7px;
+  -moz-border-radius: 0 0 7px 7px;
+  -webkit-border-radius: 0 0 7px 7px;
+}
+div.highlight a:hover{
+	background: #dbdbdb;
+	border-top: 1px solid #EAEAEA;
+}

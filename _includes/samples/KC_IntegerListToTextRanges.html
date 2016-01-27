@@ -1,10 +1,10 @@
 <div class="highlight"><pre>
-<span class="brkt">(</span><span class="func">defun</span> IntegerList-&gt;TextRanges <span class="brkt">(</span>intlist <span class="func">/</span> range <span class="func">txt</span><span class="brkt">)</span><span class="cmt">; = Integer List to Text with Range(s)</span>
+<span class="brkt">(</span><span class="func">defun</span> IntegerList-&gt;TextRanges <span class="brkt">(</span>intlist <span class="func">/</span> range txt<span class="brkt">)</span><span class="cmt">; = Integer List to Text with Range(s)</span>
   <span class="cmt">;; Code retrieve from </span>
   <span class="cmt">;; https://forums.autodesk.com/t5/visual-lisp-autolisp-and-general/convert-list-of-numbers-to-a-range-of-missing-numbers/m-p/4335437#M313320</span>
   <span class="cmt">;; Author: Kent Cooper</span>
   <span class="cmt">;; command renamed from IL2TR</span>
-  <span class="brkt">(</span><span class="func">setq</span> <span class="func">txt</span> <span class="brkt">(</span><span class="func">itoa</span> <span class="brkt">(</span><span class="func">car</span> intlist<span class="brkt">)))</span><span class="cmt">; start with first number</span>
+  <span class="brkt">(</span><span class="func">setq</span> txt <span class="brkt">(</span><span class="func">itoa</span> <span class="brkt">(</span><span class="func">car</span> intlist<span class="brkt">)))</span><span class="cmt">; start with first number</span>
   <span class="brkt">(</span><span class="func">while</span> intlist <span class="cmt">; still anything left in list</span>
     <span class="brkt">(</span><span class="func">while</span>
       <span class="brkt">(</span><span class="func">and</span>
@@ -18,7 +18,7 @@
     <span class="brkt">)</span>
     <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">not</span> range<span class="brkt">)</span> <span class="brkt">(</span><span class="func">setq</span> intlist <span class="brkt">(</span><span class="func">cdr</span> intlist<span class="brkt">)))</span>
     <span class="brkt">(</span><span class="func">if</span> intlist <span class="cmt">; still anything left in list [wiped out at last item by above line]</span>
-      <span class="brkt">(</span><span class="func">setq</span> <span class="func">txt</span>	  <span class="brkt">(</span><span class="func">strcat</span> <span class="func">txt</span>
+      <span class="brkt">(</span><span class="func">setq</span> txt	  <span class="brkt">(</span><span class="func">strcat</span> txt
 			  <span class="brkt">(</span><span class="func">cond</span>	<span class="brkt">(</span>range<span class="brkt">)</span>
 				<span class="brkt">(</span><span class="str">","</span><span class="brkt">)</span>
 			  <span class="brkt">)</span>		<span class="cmt">; hyphen or comma, depending</span>
@@ -28,7 +28,7 @@
       <span class="brkt">)</span>
     <span class="brkt">)</span>
   <span class="brkt">)</span>
-  <span class="func">txt</span>
+  txt
 <span class="brkt">)</span>
 
-</pre></div>
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a></div>

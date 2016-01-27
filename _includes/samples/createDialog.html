@@ -1,0 +1,34 @@
+<div class="highlight"><pre>
+  <span class="brkt">(</span><span class="func">defun</span> <span class="func">createDialog</span> <span class="brkt">(</span><span class="func">/</span> fn fname<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> fname <span class="brkt">(</span><span class="func">vl-filename-mktemp</span> <span class="str">"dcl.dcl"</span><span class="brkt">))</span>
+    <span class="brkt">(</span><span class="func">setq</span> fn <span class="brkt">(</span><span class="func">open</span> fname <span class="str">"w"</span><span class="brkt">))</span>
+    <span class="brkt">(</span><span class="func">foreach</span> <span class="func">n</span>
+	     <span class="brkt">(</span><span class="func">list</span>
+	       <span class="str">"AddToPointGroup : dialog { label = \"Add to Point Group\";"</span>
+	       <span class="str">"  : column {"</span>
+	       <span class="str">"    : text { value = \"Existing Point Groups\"; }"</span>
+	       <span class="str">"    : list_box { width = 25;"</span>
+	       <span class="str">"                 fixed_width = true;"</span>
+	       <span class="str">"                 alignment = centered;"</span>
+	       <span class="str">"                 allow_accept = true;"</span>
+	       <span class="str">"                 key = \"ePG\"; }"</span>
+	       <span class="str">"    : text { value = \"Create Point Group\"; }"</span>
+	       <span class="str">"    : edit_box {"</span>
+	       <span class="str">"                allow_accept = true;"</span>
+	       <span class="str">"                width = 23;"</span>
+	       <span class="str">"                edit_width = 23;"</span>
+	       <span class="str">"                edit_limit = 35;"</span>
+	       <span class="str">"                key = \"nPG\";"</span>
+	       <span class="str">"                mnemonic = \"n\";"</span>
+	       <span class="str">"                alignment = centered;"</span>
+	       <span class="str">"               }"</span>
+	       <span class="str">"           }"</span>
+	       <span class="str">"  ok_cancel ;"</span>
+	       <span class="str">"}"</span>
+	      <span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">write-line</span> <span class="func">n</span> fn<span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">close</span> fn<span class="brkt">)</span>
+    fname
+  <span class="brkt">)</span>
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a></div>

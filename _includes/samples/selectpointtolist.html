@@ -1,13 +1,13 @@
 <div class="highlight"><pre>
-  <span class="brkt">(</span><span class="func">defun</span> SelectPoints-&gt;List <span class="brkt">(</span><span class="func">/</span> <span class="func">ss</span> <span class="func">scnt</span> <span class="func">lstNumbers</span><span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> <span class="func">SelectPoints-&gt;List</span> <span class="brkt">(</span><span class="func">/</span> <span class="func">ss</span> scnt <span class="func">lstNumbers</span><span class="brkt">)</span>
     <span class="brkt">(</span><span class="func">setq</span> <span class="func">ss</span> <span class="brkt">(</span><span class="func">ssget</span> <span class="quot">'</span><span class="brkt">((</span><span class="int">0</span> <span class="quot">.</span> <span class="str">"AECC_COGO_POINT"</span><span class="brkt">))))</span>
-    <span class="brkt">(</span><span class="func">repeat</span> <span class="brkt">(</span><span class="func">setq</span> <span class="func">scnt</span> <span class="brkt">(</span><span class="func">sslength</span> <span class="func">ss</span><span class="brkt">))</span>
+    <span class="brkt">(</span><span class="func">repeat</span> <span class="brkt">(</span><span class="func">setq</span> scnt <span class="brkt">(</span><span class="func">sslength</span> <span class="func">ss</span><span class="brkt">))</span>
       <span class="brkt">(</span><span class="func">setq</span> <span class="func">lstNumbers</span>
 	     <span class="brkt">(</span><span class="func">append</span>
 	       <span class="func">lstNumbers</span>
 	       <span class="brkt">(</span><span class="func">list</span>
 		 <span class="brkt">(</span><span class="func">vlax-get-property</span>
-		   <span class="brkt">(</span><span class="func">vlax-ename-&gt;vla-object</span> <span class="brkt">(</span><span class="func">ssname</span> <span class="func">ss</span> <span class="brkt">(</span><span class="func">setq</span> <span class="func">scnt</span> <span class="brkt">(</span><span class="func">1-</span> <span class="func">scnt</span><span class="brkt">))))</span>
+		   <span class="brkt">(</span><span class="func">vlax-ename-&gt;vla-object</span> <span class="brkt">(</span><span class="func">ssname</span> <span class="func">ss</span> <span class="brkt">(</span><span class="func">setq</span> scnt <span class="brkt">(</span><span class="func">1-</span> scnt<span class="brkt">))))</span>
 		   <span class="quot">'</span>Number
 		 <span class="brkt">)</span>
 	       <span class="brkt">)</span>
@@ -15,4 +15,4 @@
       <span class="brkt">)</span>
     <span class="brkt">)</span>
   <span class="brkt">)</span>
-</pre></div>
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a></div>
