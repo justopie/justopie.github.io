@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Add a Point Group with AutoLISP
+title: How-to Add a Point Group with AutoLISP
 published: true
 tags: [AutoLISP, Civil 3D, Point Groups]
 author: Richard Lawrence

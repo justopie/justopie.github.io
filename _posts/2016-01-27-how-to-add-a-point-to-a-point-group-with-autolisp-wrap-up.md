@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Add a Point to a Point Group with AutoLISP - Wrap-up
+title: How-to Add a Point to a Point Group with AutoLISP - Wrap-up
 published: true
 tags: [AutoLISP, Civil 3D, Point Groups, Points]
 author: Richard Lawrence
 ---
-![Points]({{ site.url }}/assets/addpoints.png) Building on [last week's post]({% post_url 2016-01-18-add-a-point-to-a-point-group-with-autolisp %}), we came to a point with a routine to add a point number to a point group with AutoLISP.  The routine was complete, however it required one to know the point number and also have a reference to the Point Group object.
+![Points]({{ site.url }}/assets/addpoints.png) Building on [last week's post]({% post_url 2016-01-18-how-to-add-a-point-to-a-point-group-with-autolisp %}), we came to a point with a routine to add a point number to a point group with AutoLISP.  The routine was complete, however it required one to know the point number and also have a reference to the Point Group object.
 
 The routine would be easier to the user if a selection set was allowed to select the points.  This subroutine will ask the user to select COGO Points from the drawing.
 
