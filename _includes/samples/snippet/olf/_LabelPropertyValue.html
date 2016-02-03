@@ -1,0 +1,23 @@
+<div class="highlight"><pre>
+  <span class="brkt">(</span><span class="func">defun</span> _LabelPropertyValue <span class="brkt">(</span>VLA-Object <span class="func">/</span><span class="brkt">)</span>
+    <span class="cmt">;;_ Retrieve label name from label style</span>
+    <span class="cmt">;;_ Copyright © 2013-2015 by Richard Lawrence</span>
+    <span class="cmt">;;_ Returns string value</span>
+    <span class="brkt">(</span><span class="func">if</span>
+      <span class="brkt">(</span><span class="func">and</span>
+	<span class="brkt">(</span><span class="func">vlax-property-available-p</span> VLA-Object <span class="str">"LabelProperties"</span><span class="brkt">)</span>
+	<span class="brkt">(</span><span class="func">vlax-property-available-p</span>
+	  <span class="brkt">(</span><span class="func">setq</span>	VLA-Object
+		 <span class="brkt">(</span>op:property VLA-Object <span class="quot">'</span>LabelProperties<span class="brkt">)</span>
+	  <span class="brkt">)</span>
+	  <span class="str">"Layer"</span>
+	<span class="brkt">)</span>
+	<span class="brkt">(</span><span class="func">vlax-property-available-p</span>
+	  <span class="brkt">(</span><span class="func">setq</span> VLA-Object <span class="brkt">(</span>op:property VLA-Object <span class="quot">'</span>Layer<span class="brkt">))</span>
+	  <span class="str">"Value"</span>
+	<span class="brkt">)</span>
+      <span class="brkt">)</span>
+       <span class="brkt">(</span>op:property VLA-Object <span class="quot">'</span>Value<span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a></div>

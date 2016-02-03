@@ -1,0 +1,236 @@
+<div class="highlight"><pre>
+<span class="cmt">;|
+
+ObjectLayerFreeze.lsp
+
+Version History
+1.1		September 10, 2015		Added additional Civil 3D object types
+1.0		July 11, 2013			Initial Release
+
+Freezes the label's assigned layer of a selected Civil 3D object
+
+Dependencies:	none
+Usage: (CLI)	OLF
+Arguments:		none
+Returns:		none
+
+Copyright © 2013-2015 by Richard Lawrence
+
+Written permission must be obtained to copy, modify, and distribute 
+this software. Permission to use this software for any purpose and 
+without fee is hereby granted, provided that the above copyright 
+notice appears in all copies and that both the copyright notice and 
+the limited warranty and restricted rights notice below appear in 
+all supporting documentation.
+
+THIS PROGRAM IS PROVIDED "AS IS" AND WITH ALL FAULTS.  ANY IMPLIED 
+WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE ARE 
+HEREIN DISCLAIMED. THERE IS NO WARRANTY THAT THE OPERATION OF THE 
+PROGRAM WILL BE UNINTERRUPTED OR ERROR FREE.  USAGE OF THIS PROGRAM 
+IS AT YOUR OWN RISK.
+
+|;</span>
+
+<span class="brkt">(</span><span class="func">defun</span> c:olf <span class="brkt">(</span><span class="func">/</span>	_LabelPropertyValue		  _FreezeLabelLayer
+		oPicked		 sObject	  sLayer
+		sName		 oStyle
+	       <span class="brkt">)</span>
+  <span class="cmt">;;_ Sub Routine definitions</span>
+
+  <span class="cmt">;;_ Retrieve label name from label style</span>
+  <span class="brkt">(</span><span class="func">defun</span> _LabelPropertyValue <span class="brkt">(</span>VLA-Object <span class="func">/</span><span class="brkt">)</span>
+    <span class="cmt">;;_ Returns string value</span>
+    <span class="brkt">(</span><span class="func">if</span>
+      <span class="brkt">(</span><span class="func">and</span>
+	<span class="brkt">(</span><span class="func">vlax-property-available-p</span> VLA-Object <span class="str">"LabelProperties"</span><span class="brkt">)</span>
+	<span class="brkt">(</span><span class="func">vlax-property-available-p</span>
+	  <span class="brkt">(</span><span class="func">setq</span>	VLA-Object
+		 <span class="brkt">(</span>op:property VLA-Object <span class="quot">'</span>LabelProperties<span class="brkt">)</span>
+	  <span class="brkt">)</span>
+	  <span class="str">"Layer"</span>
+	<span class="brkt">)</span>
+	<span class="brkt">(</span><span class="func">vlax-property-available-p</span>
+	  <span class="brkt">(</span><span class="func">setq</span> VLA-Object <span class="brkt">(</span>op:property VLA-Object <span class="quot">'</span>Layer<span class="brkt">))</span>
+	  <span class="str">"Value"</span>
+	<span class="brkt">)</span>
+      <span class="brkt">)</span>
+       <span class="brkt">(</span>op:property VLA-Object <span class="quot">'</span>Value<span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+  <span class="cmt">;;_ Freeze label layer</span>
+  <span class="brkt">(</span><span class="func">defun</span> _FreezeLabelLayer
+	 <span class="brkt">(</span>sStyleType lstStyleData blnFreezeStyle <span class="func">/</span> msg<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> lstStyleData<span class="brkt">)</span> <span class="quot">'</span><span class="func">LIST</span><span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">progn</span>
+	<span class="brkt">(</span><span class="func">foreach</span> <span class="func">n</span> lstStyleData
+	  <span class="brkt">(</span><span class="func">if</span>
+	    <span class="brkt">(</span><span class="func">getvar</span> <span class="quot">'</span>tilemode<span class="brkt">)</span>
+	     <span class="brkt">(</span><span class="func">vla-put-freeze</span> <span class="brkt">(</span>op:layer <span class="brkt">(</span><span class="func">nth</span> <span class="int">0</span> <span class="func">n</span><span class="brkt">))</span> <span class="func">:vlax-true</span><span class="brkt">)</span>
+	     <span class="brkt">(</span><span class="func">vl-cmdf</span> <span class="str">"_vplayer"</span>
+		      <span class="str">"f"</span>
+		      <span class="brkt">(</span><span class="func">nth</span> <span class="int">0</span> <span class="func">n</span><span class="brkt">)</span>
+		      <span class="str">"Current"</span>
+		      <span class="str">""</span>
+	     <span class="brkt">)</span>
+	  <span class="brkt">)</span>
+	  <span class="brkt">(</span><span class="func">setq</span>	msg <span class="brkt">(</span><span class="func">strcat</span> <span class="str">"\n"</span>
+			    sStyleType
+			    <span class="str">" Label Style \""</span>
+			    <span class="brkt">(</span><span class="func">nth</span> <span class="int">1</span> <span class="func">n</span><span class="brkt">)</span>
+			    <span class="str">"\""</span>
+			    <span class="str">"\n"</span>
+			    sStyleType
+			    <span class="str">" Label Layer \""</span>
+			    <span class="brkt">(</span><span class="func">nth</span> <span class="int">0</span> <span class="func">n</span><span class="brkt">)</span>
+			    <span class="str">"\" was frozen. "</span>
+		    <span class="brkt">)</span>
+	  <span class="brkt">)</span>
+	<span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	msg
+      <span class="brkt">(</span><span class="func">princ</span> msg<span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+
+ <span class="cmt">;_ Get Active Document object</span>
+  <span class="brkt">(</span><span class="func">defun</span> op:doc	<span class="brkt">()</span>
+    <span class="brkt">(</span><span class="func">vla-get-activedocument</span> <span class="brkt">(</span><span class="func">vlax-get-acad-object</span><span class="brkt">))</span>
+  <span class="brkt">)</span>
+
+  <span class="brkt">(</span><span class="func">defun</span> op:property <span class="brkt">(</span>vlaObject symProperty <span class="func">/</span><span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">vlax-property-available-p</span> vlaObject symProperty<span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">vlax-get-property</span> vlaObject symProperty<span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+
+ <span class="cmt">;_ Get Layers collection</span>
+  <span class="brkt">(</span><span class="func">defun</span> op:layers <span class="brkt">()</span>
+    <span class="brkt">(</span><span class="func">vla-get-layers</span> <span class="brkt">(</span>op:doc<span class="brkt">))</span>
+  <span class="brkt">)</span>
+
+ <span class="cmt">;_ Get Layer object by name</span>
+  <span class="brkt">(</span><span class="func">defun</span> op:layer <span class="brkt">(</span><span class="func">name</span><span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> <span class="func">name</span><span class="brkt">)</span> <span class="quot">'</span>STR<span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">progn</span>
+	<span class="brkt">(</span><span class="func">setq</span>
+	  <span class="func">name</span> <span class="brkt">(</span><span class="func">vl-catch-all-apply</span> <span class="quot">'</span><span class="func">vla-item</span> <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span>op:layers<span class="brkt">)</span> <span class="func">name</span><span class="brkt">))</span>
+	<span class="brkt">)</span>
+	<span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">vl-catch-all-error-p</span> <span class="func">name</span><span class="brkt">)</span>
+	  <span class="func">nil</span>
+	  <span class="func">name</span>
+	<span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+
+ <span class="cmt">;_ Get vla-object from entity</span>
+  <span class="brkt">(</span><span class="func">defun</span> op:object <span class="brkt">(</span>entity <span class="func">/</span> object<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">cond</span> <span class="brkt">((</span><span class="func">and</span>	<span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> entity<span class="brkt">)</span> <span class="quot">'</span><span class="func">LIST</span><span class="brkt">)</span>
+		<span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> <span class="brkt">(</span><span class="func">car</span> entity<span class="brkt">))</span> <span class="quot">'</span>ENAME<span class="brkt">)</span>
+	   <span class="brkt">)</span>
+	   <span class="brkt">(</span><span class="func">setq</span> ename <span class="brkt">(</span><span class="func">car</span> entity<span class="brkt">))</span>
+	  <span class="brkt">)</span>
+	  <span class="brkt">((</span><span class="func">and</span>	<span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> entity<span class="brkt">)</span> <span class="quot">'</span><span class="func">LIST</span><span class="brkt">)</span>
+		<span class="brkt">(</span><span class="func">assoc</span> <span class="int">-1</span> entity<span class="brkt">)</span>
+		<span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">cdr</span> <span class="brkt">(</span><span class="func">assoc</span> <span class="int">-1</span> entity<span class="brkt">)))</span>
+	   <span class="brkt">)</span>
+	   <span class="brkt">(</span><span class="func">setq</span> ename <span class="brkt">(</span><span class="func">cdr</span> <span class="brkt">(</span><span class="func">assoc</span> <span class="int">-1</span> entity<span class="brkt">)))</span>
+	  <span class="brkt">)</span>
+	  <span class="brkt">((</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> entity<span class="brkt">)</span> <span class="quot">'</span>ENAME<span class="brkt">)</span>
+	   <span class="brkt">(</span><span class="func">setq</span> ename entity<span class="brkt">)</span>
+	  <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span>
+      ename <span class="brkt">(</span><span class="func">vl-catch-all-apply</span> <span class="quot">'</span><span class="func">vlax-ename-&gt;vla-object</span> <span class="brkt">(</span><span class="func">list</span> ename<span class="brkt">))</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">vl-catch-all-error-p</span> ename<span class="brkt">)</span>
+      <span class="func">nil</span>
+      ename
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+
+  <span class="cmt">;;_ Main function</span>
+
+  <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">setq</span> oPicked <span class="brkt">(</span><span class="func">nentselp</span> <span class="str">"\nSelect label to freeze: "</span><span class="brkt">))</span>
+	   <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> oPicked<span class="brkt">)</span> <span class="quot">'</span><span class="func">LIST</span><span class="brkt">)</span>
+	   <span class="brkt">(</span><span class="func">or</span>
+	     <span class="brkt">(</span><span class="func">=</span> <span class="int">2</span> <span class="brkt">(</span><span class="func">length</span> oPicked<span class="brkt">))</span>
+	     <span class="brkt">(</span><span class="func">=</span> <span class="int">4</span> <span class="brkt">(</span><span class="func">length</span> oPicked<span class="brkt">))</span>
+	   <span class="brkt">)</span>
+	   <span class="brkt">(</span><span class="func">setq</span> oPicked <span class="brkt">(</span>op:object <span class="brkt">(</span><span class="func">car</span> oPicked<span class="brkt">)))</span>
+      <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">progn</span>
+					<span class="cmt">;(setq objLayers (op:layers))</span>
+      <span class="brkt">(</span><span class="func">cond</span>
+	<span class="brkt">((</span><span class="func">=</span> <span class="brkt">(</span>op:property oPicked <span class="quot">'</span>ObjectName<span class="brkt">)</span>
+	    <span class="str">"AeccDbParcelSegmentLabel"</span>
+	 <span class="brkt">)</span>
+	 <span class="brkt">(</span><span class="func">setq</span> sObject <span class="str">"Line"</span>
+	       slayer  <span class="brkt">(</span>_LabelPropertyValue
+			 <span class="brkt">(</span><span class="func">setq</span> oStyle <span class="brkt">(</span>op:property oPicked <span class="quot">'</span>LineLabelStyle<span class="brkt">))</span>
+		       <span class="brkt">)</span>
+	       sname   <span class="brkt">(</span>op:property oStyle <span class="quot">'</span><span class="func">Name</span><span class="brkt">)</span>
+	 <span class="brkt">)</span>
+	 <span class="brkt">(</span>_FreezeLabelLayer sObject <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">list</span> slayer sname<span class="brkt">))</span> <span class="func">nil</span><span class="brkt">)</span>
+	 <span class="brkt">(</span><span class="func">setq</span> sObject <span class="str">"Curve"</span>
+	       slayer  <span class="brkt">(</span>_LabelPropertyValue
+			 <span class="brkt">(</span><span class="func">setq</span> oStyle <span class="brkt">(</span>op:property oPicked <span class="quot">'</span>CurveLabelStyle<span class="brkt">))</span>
+		       <span class="brkt">)</span>
+	       sname   <span class="brkt">(</span>op:property oStyle <span class="quot">'</span><span class="func">Name</span><span class="brkt">)</span>
+	 <span class="brkt">)</span>
+	 <span class="brkt">(</span>_FreezeLabelLayer sObject <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">list</span> slayer sname<span class="brkt">))</span> <span class="func">nil</span><span class="brkt">)</span>
+	<span class="brkt">)</span>
+	<span class="brkt">((</span><span class="func">and</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span>op:property oPicked <span class="quot">'</span>ObjectName<span class="brkt">)</span> <span class="str">"AeccDbFace"</span><span class="brkt">)</span>
+	      <span class="brkt">(</span><span class="func">vlax-property-available-p</span> oPicked <span class="str">"AreaLabelStyle"</span><span class="brkt">)</span>
+	 <span class="brkt">)</span>
+	 <span class="brkt">(</span><span class="func">setq</span> sObject <span class="str">"Parcel Area"</span>
+	       slayer  <span class="brkt">(</span>_LabelPropertyValue
+			 <span class="brkt">(</span><span class="func">setq</span> oStyle <span class="brkt">(</span>op:property oPicked <span class="quot">'</span>AreaLabelStyle<span class="brkt">))</span>
+		       <span class="brkt">)</span>
+	       sname   <span class="brkt">(</span>op:property oStyle <span class="quot">'</span><span class="func">Name</span><span class="brkt">)</span>
+	 <span class="brkt">)</span>
+	 <span class="brkt">(</span>_FreezeLabelLayer sObject <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">list</span> slayer sname<span class="brkt">))</span> <span class="func">nil</span><span class="brkt">)</span>
+	<span class="brkt">)</span>
+	<span class="brkt">((</span><span class="func">and</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span>op:property oPicked <span class="quot">'</span>ObjectName<span class="brkt">)</span> <span class="str">"AeccDbCogoPoint"</span><span class="brkt">)</span>
+	      <span class="brkt">(</span><span class="func">vlax-property-available-p</span> oPicked <span class="str">"LabelStyle"</span><span class="brkt">)</span>
+	 <span class="brkt">)</span>
+	 <span class="brkt">(</span><span class="func">setq</span> sObject <span class="str">"Point"</span>
+	       slayer  <span class="brkt">(</span>_LabelPropertyValue
+			 <span class="brkt">(</span><span class="func">setq</span> oStyle <span class="brkt">(</span>op:property oPicked <span class="quot">'</span>LabelStyle<span class="brkt">))</span>
+		       <span class="brkt">)</span>
+	       sname   <span class="brkt">(</span>op:property oStyle <span class="quot">'</span><span class="func">Name</span><span class="brkt">)</span>
+	 <span class="brkt">)</span>
+	 <span class="brkt">(</span>_FreezeLabelLayer sObject <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">list</span> slayer sname<span class="brkt">))</span> <span class="func">nil</span><span class="brkt">)</span>
+	<span class="brkt">)</span>
+	<span class="brkt">((</span><span class="func">and</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span>op:property oPicked <span class="quot">'</span>ObjectName<span class="brkt">)</span> <span class="str">"AeccDbNoteLabel"</span><span class="brkt">)</span>
+	      <span class="brkt">(</span><span class="func">vlax-property-available-p</span> oPicked <span class="str">"LabelStyle"</span><span class="brkt">)</span>
+	 <span class="brkt">)</span>
+	 <span class="brkt">(</span><span class="func">setq</span> sObject <span class="str">"Note"</span>
+	       slayer  <span class="brkt">(</span>_LabelPropertyValue
+			 <span class="brkt">(</span><span class="func">setq</span> oStyle <span class="brkt">(</span>op:property oPicked <span class="quot">'</span>LabelStyle<span class="brkt">))</span>
+		       <span class="brkt">)</span>
+	       sname   <span class="brkt">(</span>op:property oStyle <span class="quot">'</span><span class="func">Name</span><span class="brkt">)</span>
+	 <span class="brkt">)</span>
+	 <span class="brkt">(</span>_FreezeLabelLayer sObject <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">list</span> slayer sname<span class="brkt">))</span> <span class="func">nil</span><span class="brkt">)</span>
+	<span class="brkt">)</span>
+	<span class="brkt">((</span><span class="func">and</span> <span class="func">t</span>
+	      <span class="brkt">(</span><span class="func">vlax-property-available-p</span> oPicked <span class="str">"Layer"</span><span class="brkt">)</span>
+	 <span class="brkt">)</span>
+	 <span class="brkt">(</span><span class="func">vlax-put-property</span>
+	   <span class="brkt">(</span>op:layer <span class="brkt">(</span>op:property oPicked <span class="quot">'</span>Layer<span class="brkt">))</span>
+	   <span class="quot">'</span>Freeze
+	   <span class="func">:vlax-true</span>
+	 <span class="brkt">)</span>
+	 <span class="brkt">(</span><span class="func">princ</span>	<span class="brkt">(</span><span class="func">strcat</span>	<span class="str">"\nSelected object's layer \""</span>
+			<span class="brkt">(</span>op:property oPicked <span class="quot">'</span>Layer<span class="brkt">)</span>
+			<span class="str">"\" was frozen. "</span>
+		<span class="brkt">)</span>
+	 <span class="brkt">)</span>
+	<span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">princ</span><span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a><a href="/assets/files/ObjectLayerFreeze.LSP">Download</a></div>

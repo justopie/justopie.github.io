@@ -21,3 +21,10 @@
   
 - slug: templates
   name: Templates
+
+- slug: annotation
+  name: Annotation
+
+- slug: labels
+  name: Labels
+

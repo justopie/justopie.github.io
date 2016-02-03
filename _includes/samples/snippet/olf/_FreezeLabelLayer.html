@@ -1,0 +1,38 @@
+<div class="highlight"><pre>
+  <span class="brkt">(</span><span class="func">defun</span> _FreezeLabelLayer
+	 <span class="brkt">(</span>sStyleType lstStyleData blnFreezeStyle <span class="func">/</span> msg<span class="brkt">)</span>
+    <span class="cmt">;;_ Freeze label layer</span>
+    <span class="cmt">;;_ Copyright © 2013-2015 by Richard Lawrence</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> lstStyleData<span class="brkt">)</span> <span class="quot">'</span><span class="func">LIST</span><span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">progn</span>
+	<span class="brkt">(</span><span class="func">foreach</span> <span class="func">n</span> lstStyleData
+	  <span class="brkt">(</span><span class="func">if</span>
+	    <span class="brkt">(</span><span class="func">getvar</span> <span class="quot">'</span>tilemode<span class="brkt">)</span>
+	     <span class="brkt">(</span><span class="func">vla-put-freeze</span> <span class="brkt">(</span>op:layer <span class="brkt">(</span><span class="func">nth</span> <span class="int">0</span> <span class="func">n</span><span class="brkt">))</span> <span class="func">:vlax-true</span><span class="brkt">)</span>
+	     <span class="brkt">(</span><span class="func">vl-cmdf</span> <span class="str">"_vplayer"</span>
+		      <span class="str">"f"</span>
+		      <span class="brkt">(</span><span class="func">nth</span> <span class="int">0</span> <span class="func">n</span><span class="brkt">)</span>
+		      <span class="str">"Current"</span>
+		      <span class="str">""</span>
+	     <span class="brkt">)</span>
+	  <span class="brkt">)</span>
+	  <span class="brkt">(</span><span class="func">setq</span>	msg <span class="brkt">(</span><span class="func">strcat</span> <span class="str">"\n"</span>
+			    sStyleType
+			    <span class="str">" Label Style \""</span>
+			    <span class="brkt">(</span><span class="func">nth</span> <span class="int">1</span> <span class="func">n</span><span class="brkt">)</span>
+			    <span class="str">"\""</span>
+			    <span class="str">"\n"</span>
+			    sStyleType
+			    <span class="str">" Label Layer \""</span>
+			    <span class="brkt">(</span><span class="func">nth</span> <span class="int">0</span> <span class="func">n</span><span class="brkt">)</span>
+			    <span class="str">"\" was frozen. "</span>
+		    <span class="brkt">)</span>
+	  <span class="brkt">)</span>
+	<span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	msg
+      <span class="brkt">(</span><span class="func">princ</span> msg<span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a></div>
