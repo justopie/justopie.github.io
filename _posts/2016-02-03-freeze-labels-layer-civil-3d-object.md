@@ -33,7 +33,7 @@ I prefer to only freeze the layer in the viewport.  This allows me to still view
 
 {% include samples/snippet/olf/_FreezeLabelLayer.html %}
 
-![Object Label Freeze]({{ site.url }}/assets/objectlayerfreeze.png) 
+![Object Label Freeze]({{ site.url }}/assets/objectlayerfreeze.gif) 
 
 You can download the completed code below.
 
