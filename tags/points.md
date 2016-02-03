@@ -1,5 +1,5 @@
 ---
 layout: blog_by_tag
-title: 'Articles by tag: points'
-tag: points
+title: 'Articles by tag: Points'
+tag: Points
 ---
