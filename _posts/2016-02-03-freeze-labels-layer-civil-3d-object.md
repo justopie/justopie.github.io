@@ -5,7 +5,7 @@ published: true
 tags: [AutoLISP, Civil 3D, Layers, Labels, Annotation]
 author: Richard Lawrence
 ---
-Many times I'll need to freeze Civil 3D labels found in referenced drawings (XREF). Unfortunately, the layer assigned to the label may not match the object's layer.  This means the AutoCAD LAYFRZ command will not freeze the expected layer.
+![Object Label Freeze]({{ site.url }}/assets/olf.png) Many times I'll need to freeze Civil 3D labels found in referenced drawings (XREF). Unfortunately, the layer assigned to the label may not match the object's layer.  This means the AutoCAD LAYFRZ command will not freeze the expected layer.
 
 To remedy this, we need to first access the object data containing the label.  We can do this with the nentselp AutoLISP function.  You can read up on the [documentation](https://knowledge.autodesk.com/search-result/caas/CloudHelp/cloudhelp/2016/ENU/AutoCAD-AutoLISP/files/GUID-5CE182FE-6455-4C62-B953-B1CA441455C1-htm.html) to see how it works.
 
@@ -32,6 +32,8 @@ Now that we have the label style reference, we need to explore the actual style.
 I prefer to only freeze the layer in the viewport.  This allows me to still view it in model space, as needed.
 
 {% include samples/snippet/olf/_FreezeLabelLayer.html %}
+
+![Object Label Freeze]({{ site.url }}/assets/objectlayerfreeze.png) 
 
 You can download the completed code below.
 
