@@ -4,6 +4,8 @@ title: Are your templates finished?
 published: true
 tags: [templates, AutoCAD]
 author: Richard Lawrence
+redirect_from: "2014/07/28/are-your-templates-finished/"
+redirect_from: "2014/07/28/are-your-templates-finished//"
 ---
 No? Don't worry mine aren't either.  I have several different drawing templates that I use with AutoCAD. Each one is in various stages of completion. I don't think these templates will ever really be complete.
 

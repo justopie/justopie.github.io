@@ -4,6 +4,7 @@ title: Executing an AutoLISP routine from a Script
 published: true
 tags: [scripting, AutoLISP, AutoCAD]
 author: Richard Lawrence
+redirect_from: "2016/01/11/executing-an-autolisp-routine-from-a-script//"
 ---
 Do you need to run a script on multiple AutoCAD drawings?  One can do that with [ScriptPro](https://knowledge.autodesk.com/support/autocad/downloads/caas/downloads/content/autodesk-customization-conversion-tools.html).
 
