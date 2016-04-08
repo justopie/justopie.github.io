@@ -1,0 +1,77 @@
+<div class="highlight"><pre>
+<span class="cmt">;|
+
+OP_KWordPrompt_1.1.lsp
+
+Version History
+1.1	April 8, 2016	Reviesed to include implode subroutine
+1.0	2005		Initial Release
+
+Request string input from user.
+
+Dependencies:	none
+Usage:		(op:KWordPrompt lTypes sPrompt iDefault)
+Arguments:	lTypes		&lt;List&gt;		keyword strings
+		sPrompt		&lt;String&gt;	prefix for user prompt
+		iDefault	&lt;Integer&gt;	represents default keyword, starting at 1
+Returns:	string of user specified keyword
+
+Copyright &copy; 2005-2016 by Richard Lawrence
+
+Written permission must be obtained to copy, modify, and distribute 
+this software. Permission to use this software for any purpose and 
+without fee is hereby granted, provided that the above copyright 
+notice appears in all copies and that both the copyright notice and 
+the limited warranty and restricted rights notice below appear in 
+all supporting documentation.
+
+THIS PROGRAM IS PROVIDED "AS IS" AND WITH ALL FAULTS.  ANY IMPLIED 
+WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE ARE 
+HEREIN DISCLAIMED. THERE IS NO WARRANTY THAT THE OPERATION OF THE 
+PROGRAM WILL BE UNINTERRUPTED OR ERROR FREE.  USAGE OF THIS PROGRAM 
+IS AT YOUR OWN RISK.
+
+|;</span>
+<span class="brkt">(</span><span class="func">defun</span> <span class="func">op:KWordPrompt</span> <span class="brkt">(</span>lTypes sPrompt iDefault <span class="func">/</span> X $TYPES $TYPES2<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> <span class="func">op:implode</span> <span class="brkt">(</span>data delim <span class="func">/</span> str n<span class="brkt">)</span>
+    <span class="cmt">;; Join list items into string with delimiter string</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> data<span class="brkt">)</span> <span class="quot">'</span><span class="func">LIST</span><span class="brkt">)</span>
+	     <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> delim<span class="brkt">)</span> <span class="quot">'</span>STR<span class="brkt">)</span>
+	     <span class="brkt">(</span><span class="func">&gt;</span> <span class="brkt">(</span><span class="func">strlen</span> delim<span class="brkt">)</span> <span class="int">0</span><span class="brkt">)</span>
+	<span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">foreach</span> n data
+	<span class="brkt">(</span><span class="func">if</span> str
+	  <span class="brkt">(</span><span class="func">setq</span> str <span class="brkt">(</span><span class="func">strcat</span> str delim n<span class="brkt">))</span>
+	  <span class="brkt">(</span><span class="func">setq</span> str n<span class="brkt">)</span>
+	<span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">or</span> <span class="brkt">(</span><span class="func">&gt;=</span> iDefault <span class="brkt">(</span><span class="func">length</span> lTypes<span class="brkt">))</span>
+	   <span class="brkt">(</span><span class="func">&lt;=</span> iDefault <span class="int">0</span><span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="cmt">;; Error check to verify the default</span>
+    <span class="cmt">;; integer is within parameters</span>
+    <span class="brkt">(</span><span class="func">setq</span> iDefault <span class="brkt">(</span><span class="func">1-</span> <span class="brkt">(</span><span class="func">length</span> lTypes<span class="brkt">)))</span>
+    <span class="brkt">(</span><span class="func">setq</span> iDefault <span class="brkt">(</span><span class="func">1-</span> iDefault<span class="brkt">))</span>
+  <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">initget</span> <span class="brkt">(</span><span class="func">op:implode</span> lTypes <span class="str">" "</span><span class="brkt">))</span>
+  <span class="cmt">;; sets the initget values</span>
+  <span class="brkt">(</span><span class="func">setq</span>	X <span class="brkt">(</span><span class="func">getkword</span>
+	    <span class="brkt">(</span><span class="func">strcat</span> <span class="str">"\n"</span>
+		    sPrompt
+		    <span class="str">" ["</span>
+		    <span class="brkt">(</span><span class="func">op:implode</span> lTypes <span class="str">"/"</span><span class="brkt">)</span>
+		    <span class="str">"] &lt;"</span>
+		    <span class="brkt">(</span><span class="func">nth</span> iDEFAULT lTypes<span class="brkt">)</span>
+		    <span class="str">"&gt;: "</span>
+	    <span class="brkt">)</span>
+	  <span class="brkt">)</span>
+  <span class="brkt">)</span>
+  <span class="cmt">;; prompts user for selection</span>
+  <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">not</span> X<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> X <span class="brkt">(</span><span class="func">nth</span> idefault lTYPES<span class="brkt">))</span>
+  <span class="brkt">)</span>
+  X
+<span class="brkt">)</span>
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a><a href="/assets/files/OP_KWordPrompt_1.1.LSP">Download</a></div>
