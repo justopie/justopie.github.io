@@ -1,12 +1,14 @@
 ---
 layout: default
 ---
+{% include tagger.html %}
+
 <div class="post">
   <h1 class="post-title">{{ page.title }}</h1>
   <span class="post-date">{{ page.date | date_to_string }}</span>
   {{ content }}
   {% include twitter_plugin.html %}
-  {% if page.tags %}<p class="post-tags">Published by {% if page.authors %}{{ page.authors | array_to_sentence_string }}{% else %}<a href="mailto:{{ site.author.opie.email }}">{{ site.author.opie.name }}</a>{% endif %} under: {{ page.tags | array_to_sentence_string }}.</p>{% endif %}
+  {% if page.tags %}<p class="post-tags">Published by {% if page.authors %}{{ page.authors | array_to_sentence_string }}{% else %}<a href="mailto:{{ site.author.opie.email }}">{{ site.author.opie.name }}</a>{% endif %} under: {{ tags_content }}.</p>{% endif %}
 </div>
 {% assign hasSimilar = '' %}
 {% for post in site.related_posts %}
