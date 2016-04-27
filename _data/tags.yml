@@ -31,3 +31,8 @@
 - slug: pipe-networks
   name: Pipe Networks
 
+- slug: xsl
+  name: XSL
+
+- slug: reports
+  name: Reports
