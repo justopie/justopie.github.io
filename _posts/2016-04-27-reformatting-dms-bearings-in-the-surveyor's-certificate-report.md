@@ -34,4 +34,6 @@ The last line of this function returns the three elements with the dash separato
 	return degrees + "°" + minutes + "'" + seconds + "\"";
 </pre></div>
 
-I would recommend saving these changes to a new files.  One of the downsides to this, though, is the need to edit the JavaScript includes located at the top of your customized reports.
+I would recommend saving these changes to a new files.
+
+One of the downsides to this, though, is the need to edit the JavaScript includes located at the top of your customized XSL reports.
