@@ -15,7 +15,7 @@ Fortunately, XREF drawings are handled by AutoCAD in a similar fashion to blocks
 
 In my line of work, we typically have two or three base drawings we use for referencing.  The base drawings all have a prefix associated with the project number.  This allows for file searches against the project number.  A sample base drawing with project number could be _XYZ-Design.dwg_.
 
-Creating a XREF to that sample base drawing would create a reference name of _XYZ-Design_.  This reference would create a layer name of _XYZ-Design&#124;Defpoints_. ( I don't recommend using Defpoints for drawing, but it may actually be in the base drawing. )
+Creating a XREF to that sample base drawing would create a reference name of _XYZ-Design_.  This reference would create a layer name of XYZ-Design&#124;Defpoints. ( I don't recommend using Defpoints for drawing, but it may actually be in the base drawing. )
 
 For my next project, my design base drawing could be name _ABC-Design.dwg_.  Naturally, the _XYZ_ and _ABC_ prefixes do not match.  This causes the previously exported layer states to not work.
 
