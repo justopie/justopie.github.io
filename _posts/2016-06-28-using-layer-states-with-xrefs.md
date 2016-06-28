@@ -11,12 +11,12 @@ The reason the layer states are failing is due to the XREF layers having differe
 
 Fortunately, XREF drawings are handled by AutoCAD in a similar fashion to blocks.  Just like a block, the RENAME command will allow a name change of any attached XREFs.
 
-##In Practice
+## In Practice
 
-In my line of work, we typically have two or three base drawings we use for referencing.  The base drawings all have a prefix associated with the project number.  This allows for file searches against the project number.  A sample base drawing with project number could be *XYZ-Design.dwg*.
+In my line of work, we typically have two or three base drawings we use for referencing.  The base drawings all have a prefix associated with the project number.  This allows for file searches against the project number.  A sample base drawing with project number could be _XYZ-Design.dwg_.
 
-Creating a XREF to that sample base drawing would create a reference name of *XYZ-Design*.  This reference would create a layer name of *XYZ-Design|Defpoints*. (I don't recommend using Defpoints for drawing, but it may actually be in the base drawing.)
+Creating a XREF to that sample base drawing would create a reference name of _XYZ-Design_.  This reference would create a layer name of _XYZ-Design⎮Defpoints_. ( I don't recommend using Defpoints for drawing, but it may actually be in the base drawing. )
 
-For my next project, my design base drawing could be name *ABC-Design.dwg*.  Naturally, the *XYZ* and *ABC* prefixes do not match.  This causes the previously exported layer states to not work.
+For my next project, my design base drawing could be name _ABC-Design.dwg_.  Naturally, the _XYZ_ and _ABC_ prefixes do not match.  This causes the previously exported layer states to not work.
 
-To remedy this, I will remove the *XYZ* or *ABC* prefix.  Thus the design base drawing would now have a reference name of *Design*.  This name change now provides a standard layer name (i.e.: Design|Defpoints) between projects.  With the standard layer name, you can now import layer states between projects.
+To remedy this, I will remove the _XYZ_ or _ABC_ prefix.  Thus the design base drawing would now have a reference name of _Design_.  This name change now provides a standard layer name ( i.e.: Design⎮Defpoints ) between projects.  With the standard layer name, you can now import layer states between projects.
