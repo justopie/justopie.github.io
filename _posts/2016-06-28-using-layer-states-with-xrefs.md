@@ -11,7 +11,7 @@ The reason the layer states are failing is due to the XREF layers having differe
 
 Fortunately, XREF drawings are handled by AutoCAD in a similar fashion to blocks.  Just like a block, the RENAME command will allow a name change of any attached XREFs.
 
-##In Practice
+## In Practice
 
 In my line of work, we typically have two or three base drawings we use for referencing.  The base drawings all have a prefix associated with the project number.  This allows for file searches against the project number.  A sample base drawing with project number could be *XYZ-Design.dwg*.
 
