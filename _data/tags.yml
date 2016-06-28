@@ -36,3 +36,9 @@
 
 - slug: reports
   name: Reports
+
+- slug: xref
+  name: XREF
+
+- slug: layer-states
+  name: Layer States
