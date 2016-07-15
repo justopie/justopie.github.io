@@ -42,3 +42,6 @@
 
 - slug: layer-states
   name: Layer States
+
+- slug: blocks
+  name: Blocks
