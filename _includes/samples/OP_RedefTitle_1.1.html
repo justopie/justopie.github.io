@@ -1,0 +1,71 @@
+<div class="highlight"><pre>
+<span class="cmt">;|
+
+OP_RedefTitle_1.1.lsp
+
+Version History
+1.1		July 15, 2016	Initial Public Release
+1.0		2009	Initial Release
+
+Requires predefined list of blocks.
+
+Dependencies:	none
+Usage: RedefTitle
+Arguments:		none
+Returns:		prompt
+
+Copyright © 2005-2016 by Richard Lawrence
+
+Written permission must be obtained to copy, modify, and distribute 
+this software. Permission to use this software for any purpose and 
+without fee is hereby granted, provided that the above copyright 
+notice appears in all copies and that both the copyright notice and 
+the limited warranty and restricted rights notice below appear in 
+all supporting documentation.
+
+THIS PROGRAM IS PROVIDED "AS IS" AND WITH ALL FAULTS.  ANY IMPLIED 
+WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE ARE 
+HEREIN DISCLAIMED. THERE IS NO WARRANTY THAT THE OPERATION OF THE 
+PROGRAM WILL BE UNINTERRUPTED OR ERROR FREE.  USAGE OF THIS PROGRAM 
+IS AT YOUR OWN RISK.
+
+|;</span>
+<span class="brkt">(</span><span class="func">defun</span> <span class="func">c:redeftitle</span> <span class="brkt">(</span><span class="func">/</span> cmde sFolder lBlocks<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">setq</span>	cmde	<span class="brkt">(</span><span class="func">getvar</span> <span class="str">"cmdecho"</span><span class="brkt">)</span>
+	<span class="cmt">;;_ Assign base folder path for blocks</span>
+	sFolder	<span class="str">"U:\\Sheets\\"</span>
+  <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">setvar</span> <span class="str">"cmdecho"</span> <span class="int">0</span><span class="brkt">)</span>
+  <span class="cmt">;;_ Define possible titleblock drawing names (exclude the file extension)</span>
+  <span class="brkt">(</span><span class="func">setq</span> lBlocks <span class="brkt">(</span><span class="func">list</span> <span class="str">"TTLB-L-MS-11x17"</span>	    <span class="str">"TTLB-L-MS-18x24"</span>
+		   <span class="str">"TTLB-L-MS-22x34"</span>	    <span class="str">"TTLB-L-MS-24x36"</span>
+		   <span class="str">"TTLB-L-MS-30x42"</span>	    <span class="str">"TTLB-P-MS-LEGAL"</span>
+		  <span class="brkt">)</span>
+	<span class="brkt">)</span>
+  <span class="cmt">;;_ Provide list of block names to query</span>
+  <span class="brkt">(</span><span class="func">foreach</span> n lBlocks 
+    <span class="brkt">(</span><span class="func">progn</span>
+      <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">tblsearch</span> <span class="str">"BLOCK"</span> n<span class="brkt">)</span>
+	<span class="brkt">(</span><span class="func">progn</span>
+	  <span class="cmt">;;_ If drawing is set as an STB based plotting,</span>
+	  <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">getvar</span> <span class="str">"PSTYLEMODE"</span><span class="brkt">)</span> <span class="int">1</span><span class="brkt">)</span>
+		   <span class="brkt">(</span><span class="func">findfile</span> <span class="brkt">(</span><span class="func">strcat</span> sFolder n <span class="str">"-STB.dwg"</span><span class="brkt">))</span>
+	      <span class="brkt">)</span>
+	    <span class="cmt">;;_ then append the STB version of the block,</span>
+	    <span class="brkt">(</span><span class="func">command</span> <span class="str">"insert"</span> <span class="brkt">(</span><span class="func">strcat</span> n <span class="str">"="</span> sFolder n <span class="str">"-STB.dwg"</span><span class="brkt">)</span> <span class="func">nil</span><span class="brkt">)</span>
+	    <span class="cmt">;;_ else use the CTB version.</span>
+	    <span class="brkt">(</span><span class="func">command</span> <span class="str">"insert"</span> <span class="brkt">(</span><span class="func">strcat</span> n <span class="str">"="</span> sFolder n<span class="brkt">)</span> <span class="func">nil</span><span class="brkt">)</span>
+	  <span class="brkt">)</span>
+	  <span class="cmt">;;_ Synchronize the attributes for this block.</span>
+	  <span class="brkt">(</span><span class="func">command</span> <span class="str">"attsync"</span> <span class="str">"n"</span> n<span class="brkt">)</span>
+	<span class="brkt">)</span>
+      <span class="brkt">)</span>
+
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+  <span class="cmt">;;_ Reset cmdecho system variable</span>
+  <span class="brkt">(</span><span class="func">setvar</span> <span class="str">"cmdecho"</span> cmde<span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">prompt</span> <span class="str">"\nTitleblock redefined. "</span><span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">princ</span><span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a><a href="/assets/files/OP_RedefTitle_1.1.LSP">Download</a></div>
