@@ -9,6 +9,8 @@ exclude: [README.md, TODO.md, LICENSE, node_modules, Makefile, Gulpfile.js, pack
 
 timezone:            USA/Chicago
 
+encoding: UTF-8
+
 # Permalinks
 #
 # Use of `relative_permalinks` ensures post links from the index work properly.
