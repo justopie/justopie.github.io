@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Retrieve AutoCAD Build Data using AutoLISP
-published: false
+published: true
 tags: [AutoCAD, AutoLISP]
 author: Richard Lawrence
 ---
