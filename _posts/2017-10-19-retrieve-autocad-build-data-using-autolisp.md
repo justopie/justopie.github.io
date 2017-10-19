@@ -24,4 +24,4 @@ How you may document this information is up to the user.
 
 Remember, modifying the Windows Registry is a dangerous task.  The code posted with this post is designed to only read from the Windows Registry.
 
-If you have suggestions to improve this code, leave a comment.
+If you have suggestions to improve this code, please leave a comment.
