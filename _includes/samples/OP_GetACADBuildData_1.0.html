@@ -1,0 +1,60 @@
+<pre>
+<span class="brkt">(</span><span class="func">defun</span> <span class="func">OP:GetBuildData</span> <span class="brkt">(</span><span class="func">/</span> lBuildData sProdKey lData<span class="brkt">)</span>
+  <span class="cmt">;|
+
+OP_GetACADBuildData_1_0.lsp
+
+Version History
+1.0		October 19, 2017 Initial Release
+
+Dependencies: none
+Usage:        (op:getbuilddata)
+Arguments:    none
+Returns:      list containing current computer name and ProductInfo
+              registry key of currently running AutoCAD product
+
+Copyright © 2017 by Richard Lawrence
+
+Written permission must be obtained to copy, modify, and distribute 
+this software. Permission to use this software for any purpose and 
+without fee is hereby granted, provided that the above copyright 
+notice appears in all copies and that both the copyright notice and 
+the limited warranty and restricted rights notice below appear in 
+all supporting documentation.
+
+THIS PROGRAM IS PROVIDED "AS IS" AND WITH ALL FAULTS.  ANY IMPLIED 
+WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE ARE 
+HEREIN DISCLAIMED. THERE IS NO WARRANTY THAT THE OPERATION OF THE 
+PROGRAM WILL BE UNINTERRUPTED OR ERROR FREE.  USAGE OF THIS PROGRAM 
+IS AT YOUR OWN RISK.
+
+|;</span>
+
+  <span class="brkt">(</span><span class="func">setq</span>	lBuildData <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">getenv</span> <span class="str">"COMPUTERNAME"</span><span class="brkt">))</span>
+	sProdKey   <span class="brkt">(</span><span class="func">strcat</span>
+		     <span class="str">"HKEY_LOCAL_MACHINE\\"</span>
+		     <span class="brkt">(</span><span class="func">substr</span> <span class="brkt">(</span><span class="func">vlax-machine-product-key</span><span class="brkt">)</span>
+			     <span class="int">1</span>
+			     <span class="brkt">(</span><span class="func">vl-string-search</span> <span class="str">":"</span> <span class="brkt">(</span><span class="func">vlax-machine-product-key</span><span class="brkt">))</span>
+		     <span class="brkt">)</span>
+		     <span class="str">"\\ProductInfo"</span>
+		   <span class="brkt">)</span>
+  <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">foreach</span> n <span class="brkt">(</span><span class="func">vl-registry-descendents</span> sProdKey<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> lData	     <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">cons</span> n
+				 <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">vl-registry-read</span>
+					 <span class="brkt">(</span><span class="func">strcat</span> sProdKey <span class="str">"\\"</span> n<span class="brkt">)</span>
+					 <span class="str">"BuildVer"</span>
+				       <span class="brkt">)</span>
+				       <span class="brkt">(</span><span class="func">vl-registry-read</span>
+					 <span class="brkt">(</span><span class="func">strcat</span> sProdKey <span class="str">"\\"</span> n<span class="brkt">)</span>
+					 <span class="str">"SPNum"</span>
+				       <span class="brkt">)</span>
+				 <span class="brkt">)</span>
+			   <span class="brkt">)</span>
+		     <span class="brkt">)</span>
+	  lBuildData <span class="brkt">(</span><span class="func">append</span> lBuildData lData<span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre>
