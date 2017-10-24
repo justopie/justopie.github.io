@@ -1,5 +1,5 @@
 <div class="highlight"><pre>
-<span class="brkt">(</span><span class="func">defun</span> <span class="func">OP:GetPoint</span> <span class="brkt">(</span>iPointID <span class="func">/</span> <span class="func">oPoint</span><span class="brkt">)</span>
+<span class="brkt">(</span><span class="func">defun</span> <span class="func">OP:GetPoint</span> <span class="brkt">(</span>iPointID <span class="func">/</span> <span class="func">oPoint cPoints</span><span class="brkt">)</span>
   <span class="cmt">;|
 
 OP_GetPoint_1_0.lsp
@@ -21,7 +21,7 @@ Copyright © 2017 by Richard Lawrence
 	   <span class="brkt">(</span><span class="func">not</span>	<span class="brkt">(</span><span class="func">vl-catch-all-error-p</span>
 		  <span class="brkt">(</span><span class="func">setq</span>	<span class="func">oPoint</span> <span class="brkt">(</span><span class="func">vl-catch-all-apply</span>
 				 <span class="quot">'</span><span class="func">vla-item</span>
-				 <span class="brkt">(</span><span class="func">list</span> <span class="func">cPoints</span> sPointID<span class="brkt">)</span>
+				 <span class="brkt">(</span><span class="func">list</span> <span class="func">cPoints</span> iPointID<span class="brkt">)</span>
 			       <span class="brkt">)</span>
 		  <span class="brkt">)</span>
 		<span class="brkt">)</span>
