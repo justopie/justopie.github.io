@@ -1,4 +1,3 @@
-function selectCode( id ) {
-
-    window.getSelection().selectAllChildren( document.getElementById( id ) );
+function selectCode( a ) {
+	window.getSelection().selectAllChildren( a.parentNode.firstChild );
 }
