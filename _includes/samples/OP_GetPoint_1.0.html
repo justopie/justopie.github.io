@@ -5,7 +5,7 @@
 OP_GetPoint_1_0.lsp
 
 Version History
-1.0		October 24, 2017 Initial Release
+1.0.1         October 24, 2017 Initial Release
 
 Dependencies: OP:c3ddoc
               http://justopie.github.io/blog/2016/01/how-to-add-a-point-group-with-autolisp/#c3ddoc
@@ -20,8 +20,8 @@ Copyright © 2017 by Richard Lawrence
 	   <span class="brkt">(</span><span class="func">setq</span> <span class="func">cPoints</span> <span class="brkt">(</span><span class="func">vlax-get-property</span> <span class="func">_C3DDoc</span> <span class="quot">'</span>Points<span class="brkt">))</span>
 	   <span class="brkt">(</span><span class="func">not</span>	<span class="brkt">(</span><span class="func">vl-catch-all-error-p</span>
 		  <span class="brkt">(</span><span class="func">setq</span>	<span class="func">oPoint</span> <span class="brkt">(</span><span class="func">vl-catch-all-apply</span>
-				 <span class="quot">'</span><span class="func">vla-item</span>
-				 <span class="brkt">(</span><span class="func">list</span> <span class="func">cPoints</span> iPointID<span class="brkt">)</span>
+				 <span class="quot">'</span><span class="func">vlax-invoke-method</span>
+				 <span class="brkt">(</span><span class="func">list</span> cPoints <span class="quot">'</span><span class="func">find</span> iPointID<span class="brkt">)</span>
 			       <span class="brkt">)</span>
 		  <span class="brkt">)</span>
 		<span class="brkt">)</span>
