@@ -1,0 +1,33 @@
+<div class="highlight"><pre>
+<span class="brkt">(</span><span class="func">defun</span> <span class="func">OP:GetPoint</span> <span class="brkt">(</span>iPointID <span class="func">/</span> <span class="func">oPoint cPoints</span><span class="brkt">)</span>
+  <span class="cmt">;|
+
+OP_GetPoint_1_0.lsp
+
+Version History
+1.0		October 24, 2017 Initial Release
+
+Dependencies: OP:c3ddoc
+              http://justopie.github.io/blog/2016/01/how-to-add-a-point-group-with-autolisp/#c3ddoc
+Usage:        (OP:GetPoint)
+Arguments:    iPointID
+  Type:       Integer or String
+Returns:      AECCPoint object or nil
+
+Copyright © 2017 by Richard Lawrence
+|;</span>
+  <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">op:c3ddoc</span><span class="brkt">)</span>
+	   <span class="brkt">(</span><span class="func">setq</span> <span class="func">cPoints</span> <span class="brkt">(</span><span class="func">vlax-get-property</span> <span class="func">_C3DDoc</span> <span class="quot">'</span>Points<span class="brkt">))</span>
+	   <span class="brkt">(</span><span class="func">not</span>	<span class="brkt">(</span><span class="func">vl-catch-all-error-p</span>
+		  <span class="brkt">(</span><span class="func">setq</span>	<span class="func">oPoint</span> <span class="brkt">(</span><span class="func">vl-catch-all-apply</span>
+				 <span class="quot">'</span><span class="func">vla-item</span>
+				 <span class="brkt">(</span><span class="func">list</span> <span class="func">cPoints</span> iPointID<span class="brkt">)</span>
+			       <span class="brkt">)</span>
+		  <span class="brkt">)</span>
+		<span class="brkt">)</span>
+	   <span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="func">oPoint</span>
+  <span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a></div>
