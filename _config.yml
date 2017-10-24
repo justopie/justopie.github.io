@@ -24,7 +24,7 @@ description:         'A little commentary on my work customizing AutoCAD and Civ
 url:                 http://justopie.github.io/
 baseurl:             /
 paginate:            5
-paginate_path:       "/page:num/"
+paginate_path:       "/blog/page:num/"
 
 # excerpt_separator: <!--more-->
 
