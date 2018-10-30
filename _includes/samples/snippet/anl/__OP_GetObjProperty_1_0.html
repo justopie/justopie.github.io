@@ -1,0 +1,25 @@
+<div class="highlight"><pre>
+<span class="brkt">(</span><span class="func">defun</span> <span class="func">OP:GetObjProperty</span> <span class="brkt">(</span>sSettingsTree oBase <span class="func">/</span> <span class="func">lSettingsTree</span> oFunction<span class="brkt">)</span>
+
+    <span class="brkt">(</span><span class="func">defun</span> <span class="func">_explode</span> <span class="brkt">(</span>str delim <span class="func">/</span> ptr lst<span class="brkt">)</span>
+      <span class="cmt">;; Split a string into a list by delimiter string</span>
+      <span class="brkt">(</span><span class="func">while</span> <span class="brkt">(</span><span class="func">setq</span> ptr <span class="brkt">(</span><span class="func">vl-string-search</span> delim str<span class="brkt">))</span>
+	<span class="brkt">(</span><span class="func">setq</span> lst <span class="brkt">(</span><span class="func">cons</span> <span class="brkt">(</span><span class="func">substr</span> str <span class="int">1</span> ptr<span class="brkt">)</span> lst<span class="brkt">))</span>
+	<span class="brkt">(</span><span class="func">setq</span> str <span class="brkt">(</span><span class="func">substr</span> str <span class="brkt">(</span><span class="func">+</span> ptr <span class="int">2</span><span class="brkt">)))</span>
+      <span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">reverse</span> <span class="brkt">(</span><span class="func">cons</span> str lst<span class="brkt">))</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> <span class="func">lSettingsTree</span> <span class="brkt">(</span><span class="func">_explode</span> sSettingsTree <span class="str">":"</span><span class="brkt">))</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">not</span> oBase<span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">setq</span> oBase <span class="brkt">(</span><span class="func">OP:C3DDoc</span><span class="brkt">))</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">foreach</span> n <span class="func">lSettingsTree</span>
+      <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">vlax-property-available-p</span> oBase n<span class="brkt">)</span>
+	<span class="brkt">(</span><span class="func">setq</span> oFunction	<span class="brkt">(</span><span class="func">vlax-get-property</span> oBase n<span class="brkt">)</span>
+	      oBase	oFunction
+	<span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    oFunction
+  <span class="brkt">)</span>
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a></div>

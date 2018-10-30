@@ -1,0 +1,166 @@
+<div class="highlight"><pre>
+<span class="cmt">;|
+
+OP_AddNoteLabel_1_0.lsp
+
+Version History
+1.0.0         October 30, 2018 Initial Release
+
+Dependencies: OP:c3ddoc
+              http://justopie.github.io/blog/2016/01/how-to-add-a-point-group-with-autolisp/#c3ddoc
+              sparser - Renamed to _explode
+              http://forums.augi.com/showthread.php?59912-convert-String-to-List&p=695041&viewfull=1#post695041
+Usage:        (OP:AddNoteLabel "Standard")
+
+Arguments:    sNoteLabelStyle
+     Type:    String
+              A string denoting a note label style name currently in the drawing.
+
+Returns:      nil
+
+Copyright © 2018 by Richard Lawrence
+
+THIS PROGRAM IS PROVIDED "AS IS" AND WITH ALL FAULTS.  ANY IMPLIED 
+WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE ARE 
+HEREIN DISCLAIMED. THERE IS NO WARRANTY THAT THE OPERATION OF THE 
+PROGRAM WILL BE UNINTERRUPTED OR ERROR FREE.  USAGE OF THIS PROGRAM 
+IS AT YOUR OWN RISK.
+
+|;</span>
+<span class="brkt">(</span><span class="func">defun</span> <span class="func">OP:AddNoteLabel</span> <span class="brkt">(</span>sNoteLabelStyle <span class="func">/</span> coll:NoteLabelStyles<span class="brkt">)</span>
+
+  <span class="brkt">(</span><span class="func">defun</span> <span class="func">OP:c3ddoc</span> <span class="brkt">(</span><span class="func">/</span> prod verstr c3dver<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">defun</span> c3dver <span class="brkt">(</span><span class="func">/</span> c3d *acad*<span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">setq</span> C3D	<span class="brkt">(</span><span class="func">strcat</span>	<span class="str">"HKEY_LOCAL_MACHINE\\"</span>
+			<span class="brkt">(</span><span class="func">if</span> <span class="func">vlax-user-product-key</span>
+			  <span class="brkt">(</span><span class="func">vlax-user-product-key</span><span class="brkt">)</span>
+			  <span class="brkt">(</span><span class="func">vlax-product-key</span><span class="brkt">)</span>
+			<span class="brkt">)</span>
+		<span class="brkt">)</span>
+	    C3D	<span class="brkt">(</span><span class="func">vl-registry-read</span> C3D <span class="str">"Release"</span><span class="brkt">)</span>
+	    c3d	<span class="brkt">(</span><span class="func">substr</span>
+		  C3D
+		  <span class="int">1</span>
+		  <span class="brkt">(</span><span class="func">vl-string-search</span>
+		    <span class="str">"."</span>
+		    C3D
+		    <span class="brkt">(</span><span class="func">+</span> <span class="brkt">(</span><span class="func">vl-string-search</span> <span class="str">"."</span> C3D<span class="brkt">)</span> <span class="int">1</span><span class="brkt">)</span>
+		  <span class="brkt">)</span>
+		<span class="brkt">)</span>
+      <span class="brkt">)</span>
+      c3d
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">not</span> <span class="func">_C3DDoc</span><span class="brkt">)</span> <span class="cmt">;; Check to see if a global variable is set</span>
+      <span class="brkt">(</span><span class="func">setq</span>
+	<span class="func">_C3DDoc</span>	<span class="brkt">(</span><span class="func">vla-get-activedocument</span>
+		  <span class="brkt">(</span><span class="func">vla-getinterfaceobject</span>
+		    <span class="brkt">(</span><span class="func">vlax-get-acad-object</span><span class="brkt">)</span>
+		    <span class="brkt">(</span><span class="func">strcat</span> <span class="str">"AeccXUiLand.AeccApplication."</span> <span class="brkt">(</span>c3dver<span class="brkt">))</span>
+		  <span class="brkt">)</span>
+		<span class="brkt">)</span>
+
+      <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="func">_C3DDoc</span>  <span class="cmt">;; Return reference to active civil 3d document object</span>
+  <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> <span class="func">OP:GetCollectionItemByName</span> <span class="brkt">(</span>oCollection sName <span class="func">/</span> oItem<span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">vlax-for</span> n	oCollection
+      <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">not</span> oItem<span class="brkt">)</span>
+	       <span class="brkt">(</span><span class="func">vlax-property-available-p</span> n <span class="quot">'</span><span class="func">Name</span><span class="brkt">)</span>
+	       <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">vlax-get-property</span> n <span class="quot">'</span><span class="func">Name</span><span class="brkt">)</span> sName<span class="brkt">)</span>
+	  <span class="brkt">)</span>
+	<span class="brkt">(</span><span class="func">setq</span> oItem n<span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    oItem
+  <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> <span class="func">OP:GetObjProperty</span> <span class="brkt">(</span>sSettingsTree oBase <span class="func">/</span> <span class="func">lSettingsTree</span> oFunction<span class="brkt">)</span>
+
+    <span class="brkt">(</span><span class="func">defun</span> <span class="func">_explode</span> <span class="brkt">(</span>str delim <span class="func">/</span> ptr lst<span class="brkt">)</span>
+      <span class="cmt">;; Split a string into a list by delimiter string</span>
+      <span class="brkt">(</span><span class="func">while</span> <span class="brkt">(</span><span class="func">setq</span> ptr <span class="brkt">(</span><span class="func">vl-string-search</span> delim str<span class="brkt">))</span>
+	<span class="brkt">(</span><span class="func">setq</span> lst <span class="brkt">(</span><span class="func">cons</span> <span class="brkt">(</span><span class="func">substr</span> str <span class="int">1</span> ptr<span class="brkt">)</span> lst<span class="brkt">))</span>
+	<span class="brkt">(</span><span class="func">setq</span> str <span class="brkt">(</span><span class="func">substr</span> str <span class="brkt">(</span><span class="func">+</span> ptr <span class="int">2</span><span class="brkt">)))</span>
+      <span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">reverse</span> <span class="brkt">(</span><span class="func">cons</span> str lst<span class="brkt">))</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> <span class="func">lSettingsTree</span> <span class="brkt">(</span><span class="func">_explode</span> sSettingsTree <span class="str">":"</span><span class="brkt">))</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">not</span> oBase<span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">setq</span> oBase <span class="brkt">(</span><span class="func">OP:C3DDoc</span><span class="brkt">))</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">foreach</span> n <span class="func">lSettingsTree</span>
+      <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">vlax-property-available-p</span> oBase n<span class="brkt">)</span>
+	<span class="brkt">(</span><span class="func">setq</span> oFunction	<span class="brkt">(</span><span class="func">vlax-get-property</span> oBase n<span class="brkt">)</span>
+	      oBase	oFunction
+	<span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    oFunction
+  <span class="brkt">)</span>
+
+  <span class="brkt">(</span><span class="func">defun</span> <span class="func">OP:SetObjProperty</span> <span class="brkt">(</span>sSettingsTree oBase <span class="func">value</span> <span class="func">/</span><span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> <span class="func">lSettingsTree</span> <span class="brkt">(</span><span class="func">_explode</span> sSettingsTree <span class="str">":"</span><span class="brkt">))</span>
+    <span class="brkt">(</span><span class="func">setq</span> <span class="func">sSetting</span> <span class="brkt">(</span><span class="func">last</span> <span class="func">lSettingsTree</span><span class="brkt">))</span>
+    <span class="brkt">(</span><span class="func">setq</span> <span class="func">sSettingsBranch</span>
+	   <span class="brkt">(</span><span class="func">_implode</span> <span class="brkt">(</span><span class="func">reverse</span> <span class="brkt">(</span><span class="func">cdr</span> <span class="brkt">(</span><span class="func">reverse</span> <span class="func">lSettingsTree</span><span class="brkt">)))</span>
+		     <span class="str">":"</span>
+	   <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> eCatchIt <span class="brkt">(</span><span class="func">vl-catch-all-apply</span>
+		     <span class="quot">'</span><span class="func">vlax-put-property</span>
+		     <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">OP:GetObjProperty</span> <span class="func">sSettingsBranch</span> oBase<span class="brkt">)</span>
+			   <span class="func">sSetting</span>
+			   <span class="func">value</span>
+		     <span class="brkt">)</span>
+		   <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">vl-catch-all-error-p</span> eCatchIt<span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">princ</span> <span class="brkt">(</span><span class="func">vl-catch-all-error-message</span> eCatchIt<span class="brkt">))</span>
+      <span class="brkt">(</span><span class="func">OP:GetObjProperty</span> sSettingsTree oBase<span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+
+  <span class="brkt">(</span><span class="func">defun</span> <span class="func">_explode</span> <span class="brkt">(</span>str delim <span class="func">/</span> ptr lst<span class="brkt">)</span>
+    <span class="cmt">;; Split a string into a list by delimiter string</span>
+    <span class="brkt">(</span><span class="func">while</span> <span class="brkt">(</span><span class="func">setq</span> ptr <span class="brkt">(</span><span class="func">vl-string-search</span> delim str<span class="brkt">))</span>
+      <span class="brkt">(</span><span class="func">setq</span> lst <span class="brkt">(</span><span class="func">cons</span> <span class="brkt">(</span><span class="func">substr</span> str <span class="int">1</span> ptr<span class="brkt">)</span> lst<span class="brkt">))</span>
+      <span class="brkt">(</span><span class="func">setq</span> str <span class="brkt">(</span><span class="func">substr</span> str <span class="brkt">(</span><span class="func">+</span> ptr <span class="int">2</span><span class="brkt">)))</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">reverse</span> <span class="brkt">(</span><span class="func">cons</span> str lst<span class="brkt">))</span>
+  <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">defun</span> <span class="func">_implode</span> <span class="brkt">(</span>data delim <span class="func">/</span> str n<span class="brkt">)</span>
+    <span class="cmt">;; Join list items into string with delimiter string</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">and</span> <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> data<span class="brkt">)</span> <span class="quot">'</span><span class="func">LIST</span><span class="brkt">)</span>
+	     <span class="brkt">(</span><span class="func">=</span> <span class="brkt">(</span><span class="func">type</span> delim<span class="brkt">)</span> <span class="quot">'</span>STR<span class="brkt">)</span>
+	     <span class="brkt">(</span><span class="func">&gt;</span> <span class="brkt">(</span><span class="func">strlen</span> delim<span class="brkt">)</span> <span class="int">0</span><span class="brkt">)</span>
+	<span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">foreach</span> n data
+	<span class="brkt">(</span><span class="func">if</span> str
+	  <span class="brkt">(</span><span class="func">setq</span> str <span class="brkt">(</span><span class="func">strcat</span> str delim n<span class="brkt">))</span>
+	  <span class="brkt">(</span><span class="func">setq</span> str n<span class="brkt">)</span>
+	<span class="brkt">)</span>
+      <span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+
+  <span class="brkt">(</span><span class="func">if</span>
+    <span class="brkt">(</span><span class="func">OP:GetCollectionItemByName</span>
+      <span class="brkt">(</span><span class="func">OP:GetObjProperty</span>
+	<span class="str">"GeneralNoteLabelStyles"</span>
+	<span class="func">nil</span>
+      <span class="brkt">)</span>
+      sNoteLabelStyle
+    <span class="brkt">)</span>
+     <span class="brkt">(</span><span class="func">progn</span>
+       <span class="brkt">(</span><span class="func">OP:SetObjProperty</span>
+	 <span class="str">"Settings:GeneralSettings:StyleSettings:NoteLabelStyle:Value"</span>
+	 <span class="func">nil</span>
+	 sNoteLabelStyle
+       <span class="brkt">)</span>
+       <span class="brkt">(</span><span class="func">command</span> <span class="str">"AddNoteLabel"</span> <span class="func">pause</span> <span class="str">""</span><span class="brkt">)</span>
+     <span class="brkt">)</span>
+     <span class="brkt">(</span><span class="func">princ</span> <span class="str">"\nNote Label Style not found. "</span><span class="brkt">)</span>
+  <span class="brkt">)</span>
+  <span class="brkt">(</span><span class="func">princ</span><span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre><a href="#" onclick="selectCode(this); return false;">Select all</a><a href="/assets/files/OP_AddNoteLabel_1_0.LSP">Download</a></div>

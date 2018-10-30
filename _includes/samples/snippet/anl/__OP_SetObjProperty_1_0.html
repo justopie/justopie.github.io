@@ -1,0 +1,23 @@
+<div class="highlight"><pre>
+  <span class="brkt">(</span><span class="func">defun</span> <span class="func">OP:SetObjProperty</span> <span class="brkt">(</span>sSettingsTree oBase <span class="func">value</span> <span class="func">/</span><span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> <span class="func">lSettingsTree</span> <span class="brkt">(</span><span class="func">_explode</span> sSettingsTree <span class="str">":"</span><span class="brkt">))</span>
+    <span class="brkt">(</span><span class="func">setq</span> <span class="func">sSetting</span> <span class="brkt">(</span><span class="func">last</span> <span class="func">lSettingsTree</span><span class="brkt">))</span>
+    <span class="brkt">(</span><span class="func">setq</span> <span class="func">sSettingsBranch</span>
+	   <span class="brkt">(</span><span class="func">_implode</span> <span class="brkt">(</span><span class="func">reverse</span> <span class="brkt">(</span><span class="func">cdr</span> <span class="brkt">(</span><span class="func">reverse</span> <span class="func">lSettingsTree</span><span class="brkt">)))</span>
+		     <span class="str">":"</span>
+	   <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">setq</span> eCatchIt <span class="brkt">(</span><span class="func">vl-catch-all-apply</span>
+		     <span class="quot">'</span><span class="func">vlax-put-property</span>
+		     <span class="brkt">(</span><span class="func">list</span> <span class="brkt">(</span><span class="func">OP:GetObjProperty</span> <span class="func">sSettingsBranch</span> oBase<span class="brkt">)</span>
+			   <span class="func">sSetting</span>
+			   <span class="func">value</span>
+		     <span class="brkt">)</span>
+		   <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span>	<span class="brkt">(</span><span class="func">vl-catch-all-error-p</span> eCatchIt<span class="brkt">)</span>
+      <span class="brkt">(</span><span class="func">princ</span> <span class="brkt">(</span><span class="func">vl-catch-all-error-message</span> eCatchIt<span class="brkt">))</span>
+      <span class="brkt">(</span><span class="func">OP:GetObjProperty</span> sSettingsTree oBase<span class="brkt">)</span>
+    <span class="brkt">)</span>
+  <span class="brkt">)</span>
+</pre><a href="#" onclick="selectCode(this); return false;">Select All</a></div>
