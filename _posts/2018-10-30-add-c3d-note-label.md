@@ -17,14 +17,14 @@ Another method would be to automate this task with AutoLISP.  Fortunately, this 
 
 We will first need to again reuse some [code I previously posted](http://justopie.github.io/blog/2016/01/how-to-add-a-point-group-with-autolisp/#c3ddoc) to retrieve the current Civil 3D drawing document.  This will allow us to inspect the drawing for the available note label styles.
 
-We will then check the available note label styles.  These would be found in the General Note Label Styles property.(If spaced out the property name for readability.)  In most AutoCAD collections, the desired item can be found easily with the `vla-item` If our specified note label style name is present  We wouldn't want to add a new label with a style that doesn't exist.  That may cause a problem down the line.
+We will then check the available note label styles.  These would be found in the `General Note Label Styles` property. (I've spaced out the property name for readability.)  In most AutoCAD collections, the desired item can be found easily with the `vla-item` If our specified note label style name is present  We wouldn't want to add a new label with a style that doesn't exist.  That may cause a problem down the line.
 
-###
+### <a name="getobjectproperty"></a>Get Object Property
 {% include samples/snippet/anl/__OP_GetObjProperty_1_0.html %}
 
 If the style is available, we need to change the default note label style setting.  This setting is buried a bit within the document properties.  It can be found at `Settings` -> `General Settings` -> `Style Settings` -> `Note Label Style` -> `Value`.  Again, I've spaced out the property names to aid in readability.
 
-###
+### <a name="setobjectproperty"></a>Set Object Property
 {% include samples/snippet/anl/__OP_SetObjProperty_1_0.html %}
 
 And now back to the partial availability part.  We will use the `Command` AutoLISP function to call the Civil 3D command of `AddNoteLabel`.
@@ -32,6 +32,6 @@ And now back to the partial availability part.  We will use the `Command` AutoLI
 ### <a name="addnotelabel"></a>Add Note Label
 {% include samples/OP_AddNoteLabel_1_0.html %}
 
-This is intended as a sub-routine. One would need to supply the note label style to use as a string.  One could then add this to the Tool Palette multiple times with differing styles.
+This is intended as a sub-routine.  One would need to supply the note label style to use as a string.  One could then add this to the Tool Palette multiple times with differing styles.
 
 If you have suggestions to improve this code, leave a comment below.
