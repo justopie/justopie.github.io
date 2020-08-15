@@ -4,6 +4,8 @@ title: Archive
 parmalink: /archive/
 ---
 
+Here you can find links to past blog posts.
+
 ## Blog Posts
 
 {% for post in site.posts %}
