@@ -1,5 +1,6 @@
 require "stringex"
 require "date"
+require "fileutils"
 
 class Jekyll < Thor
   desc "new", "create a new post"
@@ -27,6 +28,21 @@ class Jekyll < Thor
     date = dates.min.strftime("%Y-%m-%d")
 
     create_file(date, title)
+  end
+
+  desc "publish", "publish drafted post"
+
+  def publish(file = nil)
+    unless file
+      puts "Choose file:"
+      @files = Dir["_drafts/*"]
+      @files.each_with_index { |f, i| puts "#{i + 1}: #{f}" }
+      print "> "
+      num = STDIN.gets
+      file = @files[num.to_i - 1]
+    end
+    now = Date.today.strftime("%Y-%m-%d") #.gsub(/-0/, "-")
+    FileUtils.mv file, "_posts/#{now}-#{File.basename(file)}"
   end
 
   private
